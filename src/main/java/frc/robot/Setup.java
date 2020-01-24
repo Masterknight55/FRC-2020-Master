@@ -340,5 +340,7 @@ public static int kLEDPower = 9;
 public static int kLEDPWMR = 0;
 public static int kLEDPWMG = 1;
 public static int kLEDPWMB = 2;
+public static int kIntakeLeftSolenoidId = 3;
+public static int kIntakeRightSolenoidId = 4;
 
 }

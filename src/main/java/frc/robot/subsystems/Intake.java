@@ -1,5 +1,10 @@
+package frc.robot.subsystems;
+
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Setup;
 
 public class Intake extends Subsystem
 {
@@ -9,52 +14,63 @@ public class Intake extends Subsystem
 
  public Intake() 
  {
-     
-
-	mIntake = new VictorSPX(Constants.kIntakeId);
+    mIntake = new VictorSPX(Setup.kIntakeId);
 	mIntake.setInverted(false);
 
-   	mIntakeArmLeftSolenoid = new Solenoid(Constants.kIntakeLeftSolenoidId);
-	mIntakeArmRightSolenoid = new Solenoid(Constants.kIntakeRightSolenoidId);
+   	mIntakeArmLeftSolenoid = new Solenoid(Setup.kIntakeLeftSolenoidId);
+	mIntakeArmRightSolenoid = new Solenoid(Setup.kIntakeRightSolenoidId);
 
     mIntake.set(ControlMode.PercentOutput,0);
 
  }
 
+ private double mIntakeMotorSpeed;
+ private boolean IntakeArmSolenoid; 
+
     public void IntakeArmUp()
     {
-        mIntakeArmLeftSolenoid.set(true);
-        mIntakeArmRightSolenoid.set(true);        
+        IntakeArmSolenoid = true;
     }
 
      public void IntakeArmDown()
     {
-        mIntakeArmLeftSolenoid.set(false);
-        mIntakeArmRightSolenoid.set(false);
+        IntakeArmSolenoid = false;
 
     }
 
-    public void IntakeWheel()
+    public void IntakePowercell()
     {
-        mIntake.set(ControlMode.PercentOutput,0.25);
+        mIntakeMotorSpeed = .25;
 
     }
 
-     public void OuttakeWheel()
+     public void OuttakePowercell()
     {
-        IntakeMotorSpeed = -.25;
+        mIntakeMotorSpeed = -.25;
     }
 
     @Override
     public void updateSubsystem()
     {
-        mIntake.set(ControlMode.PercentOutput,IntakeMotorSpeed);
+        mIntake.set(ControlMode.PercentOutput,mIntakeMotorSpeed);
+        mIntakeArmLeftSolenoid.set(IntakeArmSolenoid);
+        mIntakeArmRightSolenoid.set(IntakeArmSolenoid);
     }
 
     @Override
-    public void outputToSmartDashobard()
-    {
-        SmartDashboard.putNumber("Intake_Speed" , mIntake.getSpeed());
+    public void outputToSmartDashboard() {
+
+        SmartDashboard.putNumber("Intake_Speed" , mIntakeMotorSpeed);
+        SmartDashboard.putBoolean("Intake Arm", IntakeArmSolenoid);
+        SmartDashboard.putBoolean("Left Intake Arm", mIntakeArmLeftSolenoid.get());
+        SmartDashboard.putBoolean("Right Intake Arm", mIntakeArmRightSolenoid.get());
+    }
+
+    @Override
+    public void stop() {
+
+        mIntake.set(ControlMode.PercentOutput, 0);
+
     }
  }
     
