@@ -55,6 +55,8 @@ public class Intake extends Subsystem
         mIntake.set(ControlMode.PercentOutput,mIntakeMotorSpeed);
         mIntakeArmLeftSolenoid.set(IntakeArmSolenoid);
         mIntakeArmRightSolenoid.set(IntakeArmSolenoid);
+
+        outputToSmartDashboard();
     }
 
     @Override

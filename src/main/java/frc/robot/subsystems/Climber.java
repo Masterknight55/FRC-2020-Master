@@ -1,23 +1,23 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Setup;
 
 
 public class Climber extends Subsystem {
-
-    static Climber mInstance = new Climber();
-
-    public static Climber getInstance() {
-        return mInstance;
-	}
 	
-    //Drive Motors
+ 
+    // Drive Motors
     VictorSPX mClimber1;
     VictorSPX mClimber2;
-    VictorSPX mClimber3;
+    // stopping pneumatic
+    Solenoid  mClimbeStopSolenoid;
+    // Digital input
+    DigitalInput mClimberBottom;
     
     public Climber(){
 	
@@ -27,14 +27,19 @@ public class Climber extends Subsystem {
         mClimber2 = new VictorSPX(Setup.kClimber2Id);
         mClimber2.setInverted(false);
         
-      
-		
-		}
-    
+        mClimbeStopSolenoid = new Solenoid(Setup.kClimberSolenoidId);
+
+        mClimberBottom = new DigitalInput(Setup.kConveyorClimberPhotoEye);
+
+        }
+
     private ClimberState mClimberState;
+    private boolean mClimerSolenoid;
+    private double mClimber1MotorSpeed;
+    private double mClimber2MotorSpeed;
     
     public enum ClimberState {
-    	Nothing, Climbing, Falling
+    	Nothing, Climbing, Falling, Hanging
     }
     
     public ClimberState getClimberStates(){
@@ -45,21 +50,40 @@ public class Climber extends Subsystem {
 
         mClimberState = ClimberState.Climbing;
         
-        mClimber1.set(ControlMode.PercentOutput, 1);
-        mClimber2.set(ControlMode.PercentOutput, 1);
-        
-    	
+        mClimber1MotorSpeed = 1;
+        mClimber2MotorSpeed = 1;
+
     }
 
     public void Fall(){
         
         mClimberState = ClimberState.Falling;
         
-        mClimber1.set(ControlMode.PercentOutput, -1);
-        mClimber2.set(ControlMode.PercentOutput, -1);
-        
+        if(mClimberBottom.get() == true)
+        {
+            mClimber1MotorSpeed = 0;
+            mClimber2MotorSpeed = 0;
+        }
+        else
+        {
+            mClimber1MotorSpeed = -1;
+            mClimber2MotorSpeed = -1;
+        }
+     
     }
-    
+
+    public void locked(){
+
+        mClimberState = ClimberState.Hanging;
+
+        mClimerSolenoid = true;
+    }
+
+    public void unlocked(){
+
+        mClimerSolenoid = false;
+
+    }
 
     //Stop
     @Override
@@ -67,22 +91,26 @@ public class Climber extends Subsystem {
 
     	mClimberState = ClimberState.Nothing;
         
-        mClimber1.set(ControlMode.PercentOutput, 0);
-        mClimber2.set(ControlMode.PercentOutput, 0);
+        mClimber1MotorSpeed = 0;
+        mClimber2MotorSpeed = 0;
         
     }
-    
+   
     //Update
 	@Override
 	public void updateSubsystem() {
         
+        mClimber1.set(ControlMode.PercentOutput,mClimber1MotorSpeed);
+        mClimber2.set(ControlMode.PercentOutput,mClimber2MotorSpeed);
+        mClimbeStopSolenoid.set(mClimerSolenoid);
+
 		outputToSmartDashboard();
 		
 	}
 	
 	@Override
 	public void outputToSmartDashboard() {
-		SmartDashboard.putString("Climber State", mClimberState.toString());
+        SmartDashboard.putString("Climber State", mClimberState.toString());
 	}
 
 
