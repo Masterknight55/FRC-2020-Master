@@ -1,3 +1,4 @@
+
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AnalogInput;
@@ -8,14 +9,11 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 
-
 import com.revrobotics.ColorSensorV3;
 import com.revrobotics.ColorMatchResult;
 import com.revrobotics.ColorMatch;
 
-/**
- * Add your docs here.
- */
+
 public class ColorSensor {
 
   private final I2C.Port i2cPort = I2C.Port.kOnboard;
@@ -82,8 +80,4 @@ public class ColorSensor {
         SmartDashboard.putNumber("Confidence", match.confidence);
         SmartDashboard.putString("Detected Color", colorString);
     }
-
-
-
-
 }
