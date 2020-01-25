@@ -50,7 +50,8 @@ import org.opencv.imgproc.Imgproc;
 import java.util.Scanner;
 
 import edu.wpi.cscore.CameraServerJNI;
-import edu.wpi.first.wpilibj.IterativeRobot;
+
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.shuffleboard.*;
 import com.revrobotics.CANSparkMax;
@@ -60,7 +61,7 @@ import frc.robot.auto.AutoExecuter;
 
 
 
-public class Robot extends IterativeRobot  {
+public class Robot extends TimedRobot  {
 
   //Initialize main parts of the robot
   Setup mSetup;

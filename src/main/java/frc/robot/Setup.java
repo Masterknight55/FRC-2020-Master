@@ -342,5 +342,7 @@ public static int kLEDPWMG = 1;
 public static int kLEDPWMB = 2;
 public static int kIntakeLeftSolenoidId = 3;
 public static int kIntakeRightSolenoidId = 4;
+public static int kClimberSolenoidId = 5;
+public static int kConveyorClimberPhotoEye = 6;
 
 }
