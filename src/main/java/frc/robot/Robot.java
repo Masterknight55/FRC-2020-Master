@@ -41,8 +41,11 @@
 
 
 package frc.robot;
+import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.Delivery;
 import frc.robot.subsystems.Drivetrain;
+import edu.wpi.first.wpilibj.DriverStation;
+
 
 
 import org.opencv.core.Mat;
@@ -68,12 +71,14 @@ public class Robot extends TimedRobot  {
   Drivetrain mDrivetrain;
   LED mLED;
   Delivery mDelivery;
+  ControlPanel mControlPanel;
 
   AutoExecuter mAutoExecuter = null;
   
   public void updateAllSubsystems(){
 		
-		mDrivetrain.updateSubsystem();
+    mDrivetrain.updateSubsystem();
+    mControlPanel.updateSubsystem();
 	  
     mLED.updateSubsystem();
   }
@@ -81,7 +86,8 @@ public class Robot extends TimedRobot  {
   public void stopAllSubsystems(){
     //System.out.println("Robot Stopping");
 		mDrivetrain.stop();
-		mDrivetrain.lowGear();
+    mDrivetrain.lowGear();
+    mControlPanel.stop();
 	
     
   }
@@ -153,6 +159,7 @@ public void manual()
     mDrivetrain = Drivetrain.getInstance();
     mLED = LED.getInstance();
     mDelivery = Delivery.getInstance();
+    mControlPanel = ControlPanel.getInstance();
 
 
     System.out.println("Robot Init");
@@ -197,6 +204,36 @@ public void manual()
 
   System.out.println("Disabled Periodic");
 
+
+
+  }
+  
+  public void GetFMSData(){
+    String colorData = DriverStation.getInstance().getGameSpecificMessage();
+
+        if(colorData.length() > 0){
+            switch(colorData.charAt(0)){
+                case 'R':
+                mControlPanel.SetFMSColor("Red");
+                SmartDashboard.putString("color", "R");
+                break;
+
+                case 'G':
+                mControlPanel.SetFMSColor("Green");
+                SmartDashboard.putString("color", "G");
+                break;
+
+                case 'B':
+                mControlPanel.SetFMSColor("Blue");
+                SmartDashboard.putString("color", "B");
+                break;
+
+                case 'Y':
+                mControlPanel.SetFMSColor("Yellow");
+                SmartDashboard.putString("color", "Y");
+                break;
+            }
+        }
   }
 
   @Override
@@ -212,6 +249,7 @@ public void manual()
   public void teleopPeriodic() {
     manual();
     updateAllSubsystems();
+
   }
  
 }
