@@ -275,16 +275,6 @@ void HardwareMap() {
 public boolean AutoRunning = false;
 //-----------------------------------------------------------------------------------Constants----------------------------------------------------------------------------------//
 
-
-
-//-subsystem speed motor speeds--//
-
-//Intake
-public static double kIntakeSpeed = 1;
-public static double kIntakeReverseSpeed = -1;
-public static double kSpoolSpeed = .25;
-
-
 //-static port assignments-//
 
 //CAN
@@ -296,44 +286,42 @@ public static int kRightFrontMotorId = 2;
 public static int kRightRearMotorId = 3;
 
 //Intake
-public static int kIntakeId = 5;
-
-
-
+public static int kIntakeId = 4;
 
 //Control Panel
-public int kControlPanelWheelId = 7;
-public int kControlPanelExtenderId = 4;
+public int kControlPanelWheelId = 5;
 
 //Delivery
 public static int kDeliveryConveyorMotor = 9;
 
-
 //Climber
 public static int kClimber1Id = 11;
-public static int kClimber2Id = 11;
+public static int kClimber2Id = 12;
 
 
 
 //SOLENOIDS (0-7)
+
+
 //Shifters
-public static int kShifterSolenoidId = 1;
+public static int kShifterSolenoidId = 0;
+
+//SubSystems
+public static int kIntakeLeftSolenoidId = 1;
+public static int kIntakeRightSolenoidId = 2;
+public static int kClimberSolenoidId = 3;
+public int kControlPanelExtenderId = 4;
+
 
 
 //ANALOG (0-4) 
 
-//Lasers
-// public static int kLeftAllignLaserId = 1;
-// public static int kRightAllignLaserId = 2;
+
+
 
 //DIO
-public static int kElevatorBottomProx = 0;
-public static int kElevatorTopProx = 1;
-public static int kIntakeCargoLimit = 2;
-public static int kIntakeHatchLimit = 3;
-public static int kElevatorLaser = 4;
 public static int kConveyorTopPhotoEye = 5;
-
+public static int kConveyorClimberPhotoEye = 6;
 public static int kLEDPower = 9;
 
 
@@ -341,9 +329,6 @@ public static int kLEDPower = 9;
 public static int kLEDPWMR = 0;
 public static int kLEDPWMG = 1;
 public static int kLEDPWMB = 2;
-public static int kIntakeLeftSolenoidId = 3;
-public static int kIntakeRightSolenoidId = 4;
-public static int kClimberSolenoidId = 5;
-public static int kConveyorClimberPhotoEye = 6;
+
 
 }
