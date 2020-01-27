@@ -255,10 +255,6 @@ void HardwareMap() {
     {
         //Speed Controllers
         mIntakeHardware = new VictorSPX(Setup.kIntakeId);
-        mMrHuckHardware = new VictorSPX(Setup.kMrHuckId);
-        
-        
-        mIntakeRotaryHardware = new TalonSRX(Setup.kIntakeRotaryId);
 
         //Pneumatics
         mLeftShifterHardware = new Solenoid(Setup.kShifterSolenoidId);
@@ -278,6 +274,7 @@ void HardwareMap() {
 //-----------------------------------------------------------------------------------Not a Constant----------------------------------------------------------------------------------//
 public boolean AutoRunning = false;
 //-----------------------------------------------------------------------------------Constants----------------------------------------------------------------------------------//
+
 
 
 //-subsystem speed motor speeds--//
@@ -300,9 +297,13 @@ public static int kRightRearMotorId = 3;
 
 //Intake
 public static int kIntakeId = 5;
-public static int kIntakeRotaryId = 6;
-public static int kMrHuckId = 7;
-public static int kMrHuckJrId = 8;
+
+
+
+
+//Control Panel
+public int kControlPanelWheelId = 7;
+public int kControlPanelExtenderId = 4;
 
 //Delivery
 public static int kDeliveryConveyorMotor = 9;
