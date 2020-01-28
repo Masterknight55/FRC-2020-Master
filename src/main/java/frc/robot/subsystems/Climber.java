@@ -17,7 +17,8 @@ public class Climber extends Subsystem {
     // stopping pneumatic
     Solenoid  mClimbeStopSolenoid;
     // Digital input
-    DigitalInput mClimberBottom;
+    DigitalInput mClimberBottomPhotoEye;
+    DigitalInput mClimberTopPhotoEye;
     
     public Climber(){
 	
@@ -29,12 +30,15 @@ public class Climber extends Subsystem {
         
         mClimbeStopSolenoid = new Solenoid(Setup.kClimberSolenoidId);
 
-        mClimberBottom = new DigitalInput(Setup.kConveyorClimberPhotoEye);
+        mClimberBottomPhotoEye = new DigitalInput(Setup.kClimberPhotoEyeBottom);
+        mClimberTopPhotoEye = new DigitalInput(Setup.kClimberPhotoEyeTop);
 
         }
 
     private ClimberState mClimberState;
     private boolean mClimerSolenoid;
+
+
     private double mClimber1MotorSpeed;
     private double mClimber2MotorSpeed;
     
@@ -59,7 +63,7 @@ public class Climber extends Subsystem {
         
         mClimberState = ClimberState.Falling;
         
-        if(mClimberBottom.get() == true)
+        if(mClimberBottomPhotoEye.get() == true)
         {
             mClimber1MotorSpeed = 0;
             mClimber2MotorSpeed = 0;

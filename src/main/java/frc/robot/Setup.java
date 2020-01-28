@@ -332,8 +332,10 @@ public static int kControlPanelExtenderId = 4;
 
 
 //DIO
-public static int kConveyorTopPhotoEye = 5;
-public static int kConveyorClimberPhotoEye = 6;
+public static int kConveyorTopPhotoEye = 0;
+public static int kClimberPhotoEyeBottom = 1;
+public static int kClimberPhotoEyeTop = 2;
+
 public static int kLEDPower = 9;
 
 
