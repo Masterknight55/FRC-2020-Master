@@ -21,22 +21,28 @@ public class ControlPanel extends Subsystem
     	return mInstance;
     }
 
-	Setup mSetup;
+	
 	
     private ColorSensor mColorSensor;
     private String currentColor;
     private String FMSColor;
     private TalonSRX mControlPanelWheel;
     private double mControlPanelWheelSpeed;
+
     private boolean mControlPanelExtenderBoolean;
+    Setup mSetup;
+    
 
     private Solenoid mControlPanelExtender;
 
     public ControlPanel()
     {
+        mSetup = new Setup();
         mColorSensor = new ColorSensor();
-        mControlPanelWheel = new TalonSRX(mSetup.kControlPanelWheelId);
-        mControlPanelExtender = new Solenoid(mSetup.kControlPanelExtenderId);
+
+        
+        mControlPanelWheel = new TalonSRX(Setup.kControlPanelWheelId);
+        mControlPanelExtender = new Solenoid(Setup.kControlPanelExtenderId);
     }
 
 
@@ -70,7 +76,7 @@ public class ControlPanel extends Subsystem
         }
     }
 
-   public void TurnToColor(String Color)
+   public void TurnToColor()
    {
 
     if(currentColor == FMSColor)
@@ -83,6 +89,8 @@ public class ControlPanel extends Subsystem
     }
 
    }
+
+   
 
    public void SetFMSColor(String fMString)
    {

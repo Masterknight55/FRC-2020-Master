@@ -111,6 +111,17 @@ this.ControlBoard();
       return mDriverStick.getRawAxis(2);
     }
 
+    public boolean getDriverBbutton()
+    {
+      return mDriverStick.getRawButton(2);
+    }
+
+    public boolean getDriverYbutton()
+    {
+      return mDriverStick.getRawButton(4);
+    }
+
+
 
     //SECONDARY CONTROLLER
 
@@ -190,9 +201,10 @@ this.ControlBoard();
     public int getSecondaryDriverPov(){
     	return mSecondaryDriverStick.getPOV(0);
     }
-    
-    
 
+    
+    
+  
     //Switch Board
    public boolean GetSwitchBoardButton1(){
     return mSwitchboard.getRawButton(1);
@@ -289,7 +301,7 @@ public static int kRightRearMotorId = 3;
 public static int kIntakeId = 4;
 
 //Control Panel
-public int kControlPanelWheelId = 5;
+public static int kControlPanelWheelId = 5;
 
 //Delivery
 public static int kDeliveryConveyorMotor = 9;
@@ -310,7 +322,7 @@ public static int kShifterSolenoidId = 0;
 public static int kIntakeLeftSolenoidId = 1;
 public static int kIntakeRightSolenoidId = 2;
 public static int kClimberSolenoidId = 3;
-public int kControlPanelExtenderId = 4;
+public static int kControlPanelExtenderId = 4;
 
 
 
