@@ -74,10 +74,28 @@ public class Drivetrain extends Subsystem {
     
     public void setTankDriveSpeed(double left, double right){
     	
-		mLeftSpeed = -mDriveTrainMotionProfile.BasicCosineMotionProfile(left, 1);
-		mRightSpeed = mDriveTrainMotionProfile.BasicCosineMotionProfile(right, 1);
+		mLeftSpeed = -BasicCosineMotionProfile(left, 1);
+		mRightSpeed = BasicCosineMotionProfile(right, 1);
 		
+	}
+	
+	public double BasicCosineMotionProfile(double input, double scale)
+    {
+        if(input < 0)
+			{
+				return -1 * (2 * (Math.cos(input * scale + Math.PI) + 1));
+			}
+			if (input > 0)
+			{
+				return 2 * (Math.cos(input * scale + Math.PI) + 1);	
+			}
+			else
+			{
+				return 0;
+			}
+     
     }
+
     
 
     //Stop

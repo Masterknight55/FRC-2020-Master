@@ -41,9 +41,11 @@
 
 
 package frc.robot;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.Delivery;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj.DriverStation;
 
 
@@ -72,6 +74,8 @@ public class Robot extends TimedRobot  {
   LED mLED;
   Delivery mDelivery;
   ControlPanel mControlPanel;
+  Intake mIntake;
+  Climber mClimber;
 
   AutoExecuter mAutoExecuter = null;
   
@@ -79,7 +83,8 @@ public class Robot extends TimedRobot  {
 		
     mDrivetrain.updateSubsystem();
     mControlPanel.updateSubsystem();
-	  
+    mIntake.updateSubsystem();
+    mClimber.updateSubsystem();
     mLED.updateSubsystem();
   }
   
@@ -88,7 +93,9 @@ public class Robot extends TimedRobot  {
 		mDrivetrain.stop();
     mDrivetrain.lowGear();
     mControlPanel.stop();
-	
+    mClimber.stop();
+    mIntake.stop();
+    mLED.stop();
     
   }
   
@@ -96,6 +103,8 @@ public void manual()
 {
     
     //Controls
+
+    //Primary Driver
 
     //Drive train Gears 
 		if(mSetup.getDriverRb()) {
@@ -118,31 +127,93 @@ public void manual()
       dpadSpeed = .25;
     }
     
+    //D Pad Up
     if(mSetup.getDriverPov() == 0 || mSetup.getDriverPov() == 45 || mSetup.getDriverPov() == 315){
-      mDrivetrain.setTankDriveSpeed(-dpadSpeed, -dpadSpeed);
+      
+      mIntake.IntakeArmUp();
+      //mDrivetrain.setTankDriveSpeed(-dpadSpeed, -dpadSpeed);
     }
+
+    //D Pad Down
     else if(mSetup.getDriverPov() == 180 || mSetup.getDriverPov() == 225 || mSetup.getDriverPov() == 135){
-      mDrivetrain.setTankDriveSpeed(dpadSpeed, dpadSpeed);
+      
+      mIntake.IntakeArmDown();
+      //mDrivetrain.setTankDriveSpeed(dpadSpeed, dpadSpeed);
     }
+
+    //D Pad Right
     else if(mSetup.getDriverPov() == 90 || mSetup.getDriverPov() == 45 || mSetup.getDriverPov() == 135){
-      mDrivetrain.setTankDriveSpeed(dpadSpeed, -dpadSpeed);
+      
+      //TODO Add Climber Strafe
+      //mDrivetrain.setTankDriveSpeed(dpadSpeed, -dpadSpeed);
     }
+
+    //D Pad Left
     else if(mSetup.getDriverPov() == 270 || mSetup.getDriverPov() == 225 || mSetup.getDriverPov() == 315){
-      mDrivetrain.setTankDriveSpeed(-dpadSpeed, dpadSpeed);
+      
+      //TODO Add Climber Strafe
+      //mDrivetrain.setTankDriveSpeed(-dpadSpeed, dpadSpeed);
     }
     else
     {
-      mDrivetrain.setTankDriveSpeed(mSetup.getDriverLeftY(), mSetup.getDriverRightY());
+      //mDrivetrain.setTankDriveSpeed(mSetup.getDriverLeftY(), mSetup.getDriverRightY());
+    }
+
+    //Intake
+
+    if(mSetup.getDriverLtBoolean())
+    {
+      mIntake.IntakePowercell();
+    }
+
+    if(mSetup.getDriverBbutton())
+    {
+      mIntake.OuttakePowercell();
+    }
+
+    //Delivery
+
+    if(mSetup.getDriverLtBoolean())
+    {
+      mDelivery.Deliver();
+    }
+
+    if(mSetup.getDriverYbutton())
+    {
+      mDelivery.Swallow();
     }
 
 
-    //Climber
+    //Secondary Driver
 
-    
-    //Cargo Intake
-		
 
-		
+    //Climber 
+
+    if(mSetup.getSecondaryDriverRbButton())
+    {
+      mClimber.Climb();
+    }
+
+    if(mSetup.getSecondaryDriverLbButton())
+    {
+      mClimber.Fall();
+    }
+
+    if(mSetup.getSecondaryDriverXButton())
+    {
+      mClimber.locked();
+    }
+
+    if(mSetup.getSecondaryDriverAButton())
+    {
+      mControlPanel.TurnToColor();
+    }
+
+    if(mSetup.getSecondaryDriverBButton())
+    {
+      mControlPanel.TurnThisManyTimes(1);
+    }
+
      //LED Lights
 
 
@@ -202,7 +273,7 @@ public void manual()
   @Override
 	public void disabledPeriodic() {
 
-  System.out.println("Disabled Periodic");
+  //System.out.println("Disabled Periodic");
 
 
 
