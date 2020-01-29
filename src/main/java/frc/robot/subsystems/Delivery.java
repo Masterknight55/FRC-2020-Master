@@ -17,7 +17,10 @@ public class Delivery extends Subsystem
 
 	Setup mSetup;
 	private VictorSPX mConveyor;
-	public DigitalInput mConveyorTop;
+    public DigitalInput mConvenyorPhotoEye1;
+    public DigitalInput mConvenyorPhotoEye2;
+    public DigitalInput mConvenyorPhotoEye3;
+    public DigitalInput mConvenyorPhotoEye4;
 
 public Delivery() {
 		
@@ -26,8 +29,9 @@ public Delivery() {
     mConveyor= new VictorSPX(Setup.kDeliveryConveyorMotor);
     mConveyor.setInverted(false);
     mConveyor.set(ControlMode.PercentOutput, 0);
-		
-    mConveyorTop = new DigitalInput(Setup.kConveyorTopPhotoEye);
+
+	mConvenyorPhotoEye1 = new DigitalInput(Setup.kConveyorPhotoEye1);	
+    
         
 		//System.out.println("Intake Done Initializing.");
     }
