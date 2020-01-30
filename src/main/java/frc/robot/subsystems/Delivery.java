@@ -17,10 +17,10 @@ public class Delivery extends Subsystem
 
 	Setup mSetup;
 	private VictorSPX mConveyor;
-    public DigitalInput mConvenyorPhotoEye1;
-    public DigitalInput mConvenyorPhotoEye2;
-    public DigitalInput mConvenyorPhotoEye3;
-    public DigitalInput mConvenyorPhotoEye4;
+    public DigitalInput mConveyorPhotoEye1;
+    public DigitalInput mConveyorPhotoEye2;
+    public DigitalInput mConveyorPhotoEye3;
+    public DigitalInput mConveyorPhotoEye4;
 
 public Delivery() {
 		
@@ -30,11 +30,18 @@ public Delivery() {
     mConveyor.setInverted(false);
     mConveyor.set(ControlMode.PercentOutput, 0);
 
-	mConvenyorPhotoEye1 = new DigitalInput(Setup.kConveyorPhotoEye1);	
+    mConveyorPhotoEye1 = new DigitalInput(Setup.kConveyorPhotoEye1);	
+    mConveyorPhotoEye2 = new DigitalInput(Setup.kConveyorPhotoEye2);
+    mConveyorPhotoEye3 = new DigitalInput(Setup.kConveyorPhotoEye3);
+    mConveyorPhotoEye4 = new DigitalInput(Setup.kConveyorPhotoEye4);
+
+
+   
     
         
 		//System.out.println("Intake Done Initializing.");
     }
+    
 
     public double ConveryorSpeed = 0.0;
 
@@ -43,9 +50,30 @@ public Delivery() {
         ConveryorSpeed = speed; 
     }
 
-    public void PushBallToTop()
+    public int getPhotoeyeNumber(){
+        int num;
+
+        if(mConveyorPhotoEye4.get()){
+            num = 4;
+        }
+        else if (mConveyorPhotoEye3.get()) {
+            num = 3;
+        }
+        else if(mConveyorPhotoEye2.get()){
+            num = 2;
+        }
+        else if(mConveyorPhotoEye1.get()){
+            num = 1;
+        }
+        else{
+            num = 0;
+        }
+        return num;
+    }
+
+    public void PushBall()
     {
-        if(mConveyorTop.get() == false)
+        if(mConveyorPhotoEye4.get() == false)
         {
             SetConveryorSpeed(.25);
         }
