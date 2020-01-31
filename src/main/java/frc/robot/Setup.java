@@ -309,7 +309,7 @@ public static int kDeliveryConveyorMotor = 9;
 //Climber
 public static int kClimber1Id = 11;
 public static int kClimber2Id = 12;
-
+public static int kClimberMoveMotor = 13;
 
 
 //SOLENOIDS (0-7)
@@ -347,6 +347,7 @@ public static int kLEDPower = 9;
 public static int kLEDPWMR = 0;
 public static int kLEDPWMG = 1;
 public static int kLEDPWMB = 2;
+
 
 
 }
