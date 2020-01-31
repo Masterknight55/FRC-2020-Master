@@ -304,12 +304,12 @@ public static int kIntakeId = 4;
 public static int kControlPanelWheelId = 5;
 
 //Delivery
-public static int kDeliveryConveyorMotor = 9;
+public static int kDeliveryConveyorMotor = 6;
 
 //Climber
-public static int kClimber1Id = 11;
-public static int kClimber2Id = 12;
-public static int kClimberMoveMotor = 13;
+public static int kClimber1Id = 7;
+public static int kClimber2Id = 8;
+public static int kClimberMoveMotor = 9;
 
 
 //SOLENOIDS (0-7)
@@ -323,6 +323,7 @@ public static int kIntakeLeftSolenoidId = 1;
 public static int kIntakeRightSolenoidId = 2;
 public static int kClimberSolenoidId = 3;
 public static int kControlPanelExtenderId = 4;
+public static int kConveyorLift = 5;
 
 
 
