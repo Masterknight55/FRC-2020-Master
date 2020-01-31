@@ -73,13 +73,14 @@ public Delivery() {
 
     public void PushBall()
     {
-        if(mConveyorPhotoEye4.get() == false)
+        if(!mConveyorPhotoEye4.get())
         {
             SetConveryorSpeed(.25);
-        }
-        else
-        {
-            SetConveryorSpeed(0);
+            int moveTo = getPhotoeyeNumber() + 1;
+            if(moveTo == getPhotoeyeNumber()){
+               SetConveryorSpeed(0);
+           }
+            
         }
     }
 
