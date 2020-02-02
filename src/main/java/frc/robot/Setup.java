@@ -292,24 +292,24 @@ public boolean AutoRunning = false;
 //CAN
 
 //Drive Train
-public static int kLeftFrontMotorId = 0;
-public static int kLeftRearMotorId = 1;
-public static int kRightFrontMotorId = 2;
-public static int kRightRearMotorId = 3;
+public static int kLeftFrontMotorId = 1;
+public static int kLeftRearMotorId = 2;
+public static int kRightFrontMotorId = 3;
+public static int kRightRearMotorId = 4;
 
 //Intake
-public static int kIntakeId = 4;
+public static int kIntakeId = 5;
 
 //Control Panel
-public static int kControlPanelWheelId = 5;
+public static int kControlPanelWheelId = 6;
 
 //Delivery
-public static int kDeliveryConveyorMotor = 6;
+public static int kDeliveryConveyorMotor = 7;
 
 //Climber
-public static int kClimber1Id = 7;
-public static int kClimber2Id = 8;
-public static int kClimberMoveMotor = 9;
+public static int kClimber1Id = 8;
+public static int kClimber2Id = 9;
+public static int kClimberMoveMotor = 10;
 
 
 //SOLENOIDS (0-7)
@@ -345,9 +345,9 @@ public static int kLEDPower = 9;
 
 
 //PWM
-public static int kLEDPWMR = 0;
-public static int kLEDPWMG = 1;
-public static int kLEDPWMB = 2;
+public static int kLEDPWMR = 8;
+public static int kLEDPWMG = 7;
+public static int kLEDPWMB = 9;
 
 
 

@@ -74,8 +74,8 @@ public class Drivetrain extends Subsystem {
     
     public void setTankDriveSpeed(double left, double right){
     	
-		mLeftSpeed = -BasicCosineMotionProfile(left, 1);
-		mRightSpeed = BasicCosineMotionProfile(right, 1);
+		mLeftSpeed = -BasicCosineMotionProfile(left, 1.5);
+		mRightSpeed = BasicCosineMotionProfile(right, 1.5);
 		
 	}
 	

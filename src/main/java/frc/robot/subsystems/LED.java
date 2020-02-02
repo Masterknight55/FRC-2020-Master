@@ -30,8 +30,13 @@ public class LED extends Subsystem
     {
         
         mLEDPWMR = new PWM(Setup.kLEDPWMR);
+        mLEDPWMR.setBounds(1000, 50, 500, 50, 500);
+
         mLEDPWMG = new PWM(Setup.kLEDPWMG);
+        mLEDPWMG.setBounds(1000, 50, 500, 50, 500);
+
         mLEDPWMB = new PWM(Setup.kLEDPWMB);
+        mLEDPWMB.setBounds(1000, 50, 500, 50, 500);
 
         mLEDPower = new DigitalOutput(Setup.kLEDPower);
 
@@ -46,7 +51,7 @@ public class LED extends Subsystem
 
     public void SetBlue()
     {
-        SetColor(26, 0, 255);
+        SetColor(26, 50, 255);
     }
 
     public void SetRed()

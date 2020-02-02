@@ -82,9 +82,9 @@ public class Robot extends TimedRobot  {
   public void updateAllSubsystems(){
 		
     mDrivetrain.updateSubsystem();
-    mControlPanel.updateSubsystem();
-    mIntake.updateSubsystem();
-    mClimber.updateSubsystem();
+    //mControlPanel.updateSubsystem();
+    //mIntake.updateSubsystem();
+    //mClimber.updateSubsystem();
     mLED.updateSubsystem();
   }
   
@@ -92,9 +92,9 @@ public class Robot extends TimedRobot  {
     //System.out.println("Robot Stopping");
 		mDrivetrain.stop();
     mDrivetrain.lowGear();
-    mControlPanel.stop();
-    mClimber.stop();
-    mIntake.stop();
+    //mControlPanel.stop();
+    //mClimber.stop();
+   // mIntake.stop();
     mLED.stop();
     
   }
@@ -156,7 +156,7 @@ public void manual()
     }
     else
     {
-      //mDrivetrain.setTankDriveSpeed(mSetup.getDriverLeftY(), mSetup.getDriverRightY());
+      mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY());
     }
 
     //Intake
@@ -278,6 +278,8 @@ public void manual()
 
 
   }
+
+ 
   
   public void GetFMSData(){
     String colorData = DriverStation.getInstance().getGameSpecificMessage();
@@ -320,6 +322,7 @@ public void manual()
   public void teleopPeriodic() {
     manual();
     updateAllSubsystems();
+    
 
   }
  

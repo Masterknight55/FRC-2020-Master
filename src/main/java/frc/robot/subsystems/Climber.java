@@ -126,7 +126,7 @@ public class Climber extends Subsystem {
     @Override
     public void stop(){
 
-    	mClimberState = ClimberState.Nothing;
+    	//mClimberState = ClimberState.Nothing;
         mClimberMotorSpeed = 0;
         mClimberSolenoid = true;
         
