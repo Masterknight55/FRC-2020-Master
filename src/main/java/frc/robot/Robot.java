@@ -47,7 +47,7 @@ import frc.robot.subsystems.Delivery;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj.DriverStation;
-
+import frc.robot.auto.AutoExecuter;
 
 
 import org.opencv.core.Mat;
@@ -76,6 +76,7 @@ public class Robot extends TimedRobot  {
   ControlPanel mControlPanel;
   Intake mIntake;
   Climber mClimber;
+  SmartDashboardInteractions mSmartDashboardInteractions;
 
   AutoExecuter mAutoExecuter = null;
   
@@ -231,6 +232,9 @@ public void manual()
     mLED = LED.getInstance();
     mDelivery = Delivery.getInstance();
     mControlPanel = ControlPanel.getInstance();
+    mSmartDashboardInteractions = new SmartDashboardInteractions();
+    mSmartDashboardInteractions.initWithDefaults();
+
 
 
     System.out.println("Robot Init");
@@ -249,11 +253,21 @@ public void manual()
 
   @Override
 	public void autonomousInit() {
-    System.out.println("Auto Init");
+
+    if (mAutoExecuter != null) {
+            mAutoExecuter.stop();
+        }
+        mAutoExecuter = null;
+        
+        mAutoExecuter = new AutoExecuter();
+        mAutoExecuter.setAutoRoutine(mSmartDashboardInteractions.getSelectedAutonMode());
+        mAutoExecuter.start();
+		
 		stopAllSubsystems();
 		updateAllSubsystems();
 		
 	}
+		
 	
 	@Override
 	public void autonomousPeriodic() {
@@ -264,11 +278,19 @@ public void manual()
   
   @Override
 	public void disabledInit(){
-      System.out.println("Disabled Init");
-      mDrivetrain.highGear();
-		  stopAllSubsystems();
-		  updateAllSubsystems();
-  }
+      if (mAutoExecuter != null) {
+            mAutoExecuter.stop();
+        }
+        mAutoExecuter = null;
+        
+        //TODO Add ResetEncoders to drivetrain
+        //mDrivetrain.resetEncoders(); 
+        mDrivetrain.highGear();
+		
+		stopAllSubsystems();
+		updateAllSubsystems();
+	}
+  
   
   @Override
 	public void disabledPeriodic() {
