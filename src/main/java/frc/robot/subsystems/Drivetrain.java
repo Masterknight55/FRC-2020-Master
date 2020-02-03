@@ -78,7 +78,7 @@ public class Drivetrain extends Subsystem {
    * This Method also uses a Baic Cosine Motion Profile that's Scale can be set 
    * @param left This is the Left Speed
    * @param right This is the Right Speed
-   * @param scale This it the Cosine Motion Profile Scale 
+   * @param scale This is the Cosine Motion Profile Scale 
    */
     public void setTankDriveSpeed(double left, double right, double scale){
     	
