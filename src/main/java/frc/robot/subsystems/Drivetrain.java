@@ -87,6 +87,27 @@ public class Drivetrain extends Subsystem {
 		
 	}
 
+
+	/**
+	 * This funciton will align the robot on the pixy cam's trained object
+	 * If it sees no object, it will remain stationary
+	 * @param pixy This pixy will be the pixy that you want to use to target the object
+	 * @param scale This it the Cosine Motion Profile Scale. It is multiplied by the input to make the graph steeper.
+	 */
+	public void autoAlign(PixyCam pixy, double scale)
+	{
+		if(pixy.blockDetected() && !pixy.inDeadzone())
+		{
+			mLeftSpeed = BasicCosineMotionProfile(pixy.value(), scale);
+			mRightSpeed = BasicCosineMotionProfile(pixy.value(), scale);
+		}
+		else
+		{
+			mLeftSpeed = 0;
+			mRightSpeed = 0;
+		}
+	}
+
 	/**
    * This double returns values based on a Cosine Motion Profile graph.
    * Here is the equation: (2 * (Math.cos(input * scale + Math.PI) + 1)
