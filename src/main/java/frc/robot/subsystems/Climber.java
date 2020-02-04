@@ -24,6 +24,9 @@ public class Climber extends Subsystem {
     DigitalInput mClimberBottomPhotoEye;
     DigitalInput mClimberTopPhotoEye;
     
+    /**
+     * This Method is a Constructor for the Motors and Sensors in the Climber Subsystem
+     */
     public Climber(){
 	
     	mClimber1 = new VictorSPX(Setup.kClimber1Id);
@@ -49,14 +52,22 @@ public class Climber extends Subsystem {
     private double mClimberMoveSpeed;
     
     public enum ClimberState {
-    	Nothing, Climbing, Falling, Hanging, Locked
+    	Climbing, Falling, Hanging, Locked
     }
     
+    /**
+     * This Method Gets the States of the Climber:
+     * (Climbing, Falling, Hanging, or Locked) 
+     * @return mClimberState
+     */
     public ClimberState getClimberStates(){
     	return mClimberState;
     }
 
-    
+    /**
+     * This Method Sets mClimberState = ClimberState.Hanging
+     * and the Motor Speed to 0
+     */
     public void StopClimb()
     {
         mClimberState = ClimberState.Hanging;
@@ -64,7 +75,10 @@ public class Climber extends Subsystem {
         mClimberMotorSpeed = 0;
 
     }
-
+    /**
+     * This Method Sets mClimberState = ClimberState.Climbing
+     * and the Motor Speed to 1
+     */
     public void Climb(){
 
         mClimberState = ClimberState.Climbing;
@@ -72,7 +86,10 @@ public class Climber extends Subsystem {
         mClimberMotorSpeed = 1;
 
     }
-
+    /**
+     * This Method Sets mClimberState = ClimberState.Falling.          
+     * If mClimberBottomPhotoEye is False, the Motor Speed is Set to -1. Otherwise, the Climber is Stopped.
+     */
     public void Fall(){
         
         mClimberState = ClimberState.Falling;
@@ -89,50 +106,67 @@ public class Climber extends Subsystem {
      
     }
 
+    /**
+     * This Method Sets mClimberState = ClimberState.Locked.
+     * This Method also Engages mClimberSolenoid
+     */
     public void locked(){
 
         mClimberState = ClimberState.Locked;
         mClimberSolenoid = true;
     }
 
+    /**
+     * This Method Disengages mClimberSolenoid
+     */
     public void unlocked(){
 
         mClimberSolenoid = false;
 
     }
 
-    //Climber Move on Bar Code
-    
+    /**
+     * This Method Sets mClimberMoveSpeed = -1, Moving the Robot to the Left
+     */
     public void MoveLeft()
     {
         mClimberMoveSpeed = -1;
 
     }
 
-    
+     /**
+     * This Method Sets mClimberMoveSpeed = 1, Moving the Robot to the Right
+     */
     public void MoveRight()
     {
         mClimberMoveSpeed = 1;
         
     }
 
+    /**
+     * This Method Sets mClimberMoveSpeed = 0, Stopping all Latteral Movement
+     */
     public void DontMove()
     {
         mClimberMoveSpeed = 0;
 
     }
 
-    //Stop
+    /**
+     * This Method Sets mClimberMotorSpeed = 0.
+     * This Method also Engages mClimberSolenoid.
+     */
     @Override
     public void stop(){
 
-    	//mClimberState = ClimberState.Nothing;
         mClimberMotorSpeed = 0;
         mClimberSolenoid = true;
         
     }
    
-    //Update
+    /**
+     * This Method Updates the Subsystem and Outputs the Updates to Smart Dashboard
+     */
 	@Override
 	public void updateSubsystem() {
         
@@ -144,7 +178,9 @@ public class Climber extends Subsystem {
 		outputToSmartDashboard();
 		
 	}
-	
+	/**
+     * This Method Formats the Climber State into a String Format to be Displayed on Smart Dashboard
+     */
 	@Override
 	public void outputToSmartDashboard() {
         SmartDashboard.putString("Climber State", mClimberState.toString());
