@@ -112,7 +112,7 @@ public class DriveStraightActionTime implements Action {
 
 	public void done() {
 
-		mDrivetrain.setTankDriveSpeed(0, 0);
+		mDrivetrain.setTankDriveSpeed(0, 0, 1);
 
 		//mDrivetrain.resetEncoders();
 

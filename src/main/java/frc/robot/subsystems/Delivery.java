@@ -34,8 +34,13 @@ public Delivery() {
     mConveyorPhotoEye2 = new DigitalInput(Setup.kConveyorPhotoEye2);
     mConveyorPhotoEye3 = new DigitalInput(Setup.kConveyorPhotoEye3);
     mConveyorPhotoEye4 = new DigitalInput(Setup.kConveyorPhotoEye4);
-    //System.out.println("Intake Done Initializing.");
-}
+
+
+   
+    
+        
+		//System.out.println("Intake Done Initializing.");
+    }
     
 
     public double ConveryorSpeed = 0.0;
@@ -96,7 +101,9 @@ public Delivery() {
 	@Override
 	public void updateSubsystem()
 	{
+        
         mConveyor.set(ControlMode.PercentOutput, ConveryorSpeed);
+			
 		outputToSmartDashboard();
 	}
 
@@ -105,6 +112,7 @@ public Delivery() {
 	public void outputToSmartDashboard() {
 
         SmartDashboard.putNumber("Delivery Conveyor Speed", ConveryorSpeed);
+
 	}
 
 	@Override
