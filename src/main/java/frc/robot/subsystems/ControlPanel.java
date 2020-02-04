@@ -22,7 +22,6 @@ public class ControlPanel extends Subsystem
     }
 
 	
-	
     private ColorSensor mColorSensor;
     private String currentColor;
     private String FMSColor;
@@ -40,12 +39,15 @@ public class ControlPanel extends Subsystem
         mSetup = new Setup();
         mColorSensor = new ColorSensor();
 
-        
         mControlPanelWheel = new TalonSRX(Setup.kControlPanelWheelId);
         mControlPanelExtender = new Solenoid(Setup.kControlPanelExtenderId);
     }
 
-
+/**
+   * This method turns the wheel a certain amount of times. This is accomplished by creating a array of colors and adding new colors to it. 
+   * It then compares the int times to the length of the array and stops turning it when the array reaches the times * 8
+   * @param times The wheel will turn until the array is greater than times times 8. 
+   */
     public void TurnThisManyTimes(int times)
     {
 
@@ -76,7 +78,10 @@ public class ControlPanel extends Subsystem
         }
     }
 
-   public void TurnToColor()
+/**
+   * This method turns the wheel to the FMS Color which is set through the Set FMSColor Method. 
+   */
+   public void TurnToFMSColor()
    {
 
     if(currentColor == FMSColor)
@@ -91,30 +96,39 @@ public class ControlPanel extends Subsystem
    }
 
    
-
+/**
+   * This method is called in Tele-op Periodic to update the FMS Color. 
+   * @param fmsString This String is set by the Set FMS Color method which is called Tele-Op Periodic.
+   */
    public void SetFMSColor(String fMString)
    {
-
     FMSColor = fMString; 
-
    }
 
+
+ /**
+   * This Extends The Control Panel Controller by setting the mControlPanelExtenderBoolean to true
+   */
    public void ExtendControlPanelController()
    {
      mControlPanelExtenderBoolean = true;
    }
-
+/**
+   * This Retracts The Control Panel Controller by setting the mControlPanelExtenderBoolean to false
+   */
    public void RetractControlPanelController()
    {
     mControlPanelExtenderBoolean = false;
    }
     
         
+
+   /**
+   * This will update the Current Color from the color sensor, the wheel speed, and the extender value 
+   * */
     @Override
     public void updateSubsystem() {
-        // TODO Auto-generated method stub
-
-
+    
         //Sets the Current Color Value
         currentColor = mColorSensor.getColor();
 
@@ -123,16 +137,22 @@ public class ControlPanel extends Subsystem
         mControlPanelExtender.set(mControlPanelExtenderBoolean);
     }
 
+    /**
+   * Outputs the Control Panel Wheel Speed and Control Panel Exendor Status 
+   */
     @Override
     public void outputToSmartDashboard() {
-        // TODO Auto-generated method stub
+        
         SmartDashboard.putNumber("Control Panel Wheel Speed", mControlPanelWheelSpeed);
         SmartDashboard.putBoolean("Control Panel Extended", mControlPanelExtenderBoolean);
-    }
 
+    }
+/**
+   * Sets the Wheel to 0 for percent output
+   */
     @Override
     public void stop() {
-        // TODO Auto-generated method stub
+        
         mControlPanelWheel.set(ControlMode.PercentOutput, (0));
     }
 

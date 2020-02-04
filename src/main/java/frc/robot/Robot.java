@@ -157,7 +157,7 @@ public void manual()
     }
     else
     {
-      mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY());
+      mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
     }
 
     //Intake
@@ -207,7 +207,7 @@ public void manual()
 
     if(mSetup.getSecondaryDriverAButton())
     {
-      mControlPanel.TurnToColor();
+      mControlPanel.TurnToFMSColor();
     }
 
     if(mSetup.getSecondaryDriverBButton())
@@ -297,8 +297,6 @@ public void manual()
 	public void disabledPeriodic() {
 
   //System.out.println("Disabled Periodic");
-
-
 
   }
 

@@ -42,6 +42,13 @@ public class LED extends Subsystem
 
     }   
 
+    
+    /** 
+     * This method sets the color of the LEDS Based on the Red Green and Blue values. 
+     * @param Red
+     * @param Green
+     * @param Blue
+     */
     public void SetColor(int Red, int Green, int Blue)
     {
         RedChannel = Red;

@@ -92,6 +92,7 @@ public class Drivetrain extends Subsystem {
    * Here is the equation: (2 * (Math.cos(input * scale + Math.PI) + 1)
    * @param input This is x value put into the equation. For example with a drive train it would be the analog input.
    * @param scale This it the Cosine Motion Profile Scale. It is multiplied by the input to make the graph steeper. 
+   * @return This will return the y value of the equation
    */
 	
 	public double BasicCosineMotionProfile(double input, double scale)
