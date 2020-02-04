@@ -78,13 +78,34 @@ public class Drivetrain extends Subsystem {
    * This Method also uses a Baic Cosine Motion Profile that's Scale can be set 
    * @param left This is the Left Speed
    * @param right This is the Right Speed
-   * @param scale This it the Cosine Motion Profile Scale 
+   * @param scale This is the Cosine Motion Profile Scale 
    */
     public void setTankDriveSpeed(double left, double right, double scale){
     	
 		mLeftSpeed = -BasicCosineMotionProfile(left, scale);
 		mRightSpeed = BasicCosineMotionProfile(right, scale);
 		
+	}
+
+
+	/**
+	 * This funciton will align the robot on the pixy cam's trained object
+	 * If it sees no object, it will remain stationary
+	 * @param pixy This pixy will be the pixy that you want to use to target the object
+	 * @param scale This it the Cosine Motion Profile Scale. It is multiplied by the input to make the graph steeper.
+	 */
+	public void autoAlign(PixyCam pixy, double scale)
+	{
+		if(pixy.blockDetected() && !pixy.inDeadzone())
+		{
+			mLeftSpeed = BasicCosineMotionProfile(pixy.value(), scale);
+			mRightSpeed = BasicCosineMotionProfile(pixy.value(), scale);
+		}
+		else
+		{
+			mLeftSpeed = 0;
+			mRightSpeed = 0;
+		}
 	}
 
 	/**
