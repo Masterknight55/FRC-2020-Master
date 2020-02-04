@@ -34,22 +34,26 @@ public Delivery() {
     mConveyorPhotoEye2 = new DigitalInput(Setup.kConveyorPhotoEye2);
     mConveyorPhotoEye3 = new DigitalInput(Setup.kConveyorPhotoEye3);
     mConveyorPhotoEye4 = new DigitalInput(Setup.kConveyorPhotoEye4);
-
-
-   
-    
-        
-		//System.out.println("Intake Done Initializing.");
-    }
+    //System.out.println("Intake Done Initializing.");
+}
     
 
     public double ConveryorSpeed = 0.0;
 
+    /**
+     * @param speed This is the speed of the conveyor
+     */
     public void SetConveryorSpeed(double speed)
     {
         ConveryorSpeed = speed; 
     }
 
+    
+    /**
+     * This method returns the highest photoeye sensor to sense a ball.
+     * This method is used by the PushBall method to make sure the conveyor
+     * doesn't overflow
+     */
     public int getPhotoeyeNumber(){
         int num;
 
@@ -71,6 +75,10 @@ public Delivery() {
         return num;
     }
 
+    /**
+     * The PushBall method is used to make room for the next
+     * incoming ball until the last photosensor is activated
+     */
     public void PushBall()
     {
         if(!mConveyorPhotoEye4.get())
@@ -101,9 +109,7 @@ public Delivery() {
 	@Override
 	public void updateSubsystem()
 	{
-        
         mConveyor.set(ControlMode.PercentOutput, ConveryorSpeed);
-			
 		outputToSmartDashboard();
 	}
 
@@ -112,7 +118,6 @@ public Delivery() {
 	public void outputToSmartDashboard() {
 
         SmartDashboard.putNumber("Delivery Conveyor Speed", ConveryorSpeed);
-
 	}
 
 	@Override

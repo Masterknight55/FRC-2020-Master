@@ -12,6 +12,7 @@ public class Intake extends Subsystem
 	private Solenoid mIntakeArmLeftSolenoid;
 	private Solenoid mIntakeArmRightSolenoid;
 
+
  public Intake() 
  {
     mIntake = new VictorSPX(Setup.kIntakeId);
