@@ -62,6 +62,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.subsystems.LED;
+import frc.robot.subsystems.PixyCam;
 import frc.robot.auto.AutoExecuter;
 
 
@@ -77,6 +78,7 @@ public class Robot extends TimedRobot  {
   Intake mIntake;
   Climber mClimber;
   SmartDashboardInteractions mSmartDashboardInteractions;
+  PixyCam mPixycam = new PixyCam(0);
 
   AutoExecuter mAutoExecuter = null;
   
@@ -87,6 +89,7 @@ public class Robot extends TimedRobot  {
     //mIntake.updateSubsystem();
     //mClimber.updateSubsystem();
     mLED.updateSubsystem();
+    
   }
   
   public void stopAllSubsystems(){
@@ -97,6 +100,7 @@ public class Robot extends TimedRobot  {
     //mClimber.stop();
    // mIntake.stop();
     mLED.stop();
+
     
   }
   
@@ -155,9 +159,16 @@ public void manual()
       //TODO Add Climber Strafe
       //mDrivetrain.setTankDriveSpeed(-dpadSpeed, dpadSpeed);
     }
+
+    else if(mSetup.getDriverYbutton())
+    {
+      mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
+      mDrivetrain.autoAlign(mPixycam, 1);
+    }
     else
     {
       mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
+      
     }
 
     //Intake

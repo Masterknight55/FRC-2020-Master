@@ -36,24 +36,24 @@ public class Drivetrain extends Subsystem {
 	
 		mSolenoid = new Solenoid(Setup.kShifterSolenoidId);
 		
-    	mLeftFrontDrive = new CANSparkMax(Setup.kLeftFrontMotorId, MotorType.kBrushless);
+    	mLeftFrontDrive = new CANSparkMax(Setup.kRightFrontMotorId, MotorType.kBrushless);
     	mLeftFrontDrive.set(0);
-		mLeftFrontDrive.setInverted(false);
+		mLeftFrontDrive.setInverted(true);
 		//mLeftFrontDrive.setRampRate(.2);
     	
-        mRightFrontDrive = new CANSparkMax(Setup.kRightFrontMotorId, MotorType.kBrushless);
+        mRightFrontDrive = new CANSparkMax(Setup.kLeftFrontMotorId, MotorType.kBrushless);
     	mRightFrontDrive.set(0);
-		mRightFrontDrive.setInverted(true);
+		mRightFrontDrive.setInverted(false);
 		//mRightFrontDrive.setRampRate(.2);
     	
-    	mLeftRearDrive = new CANSparkMax(Setup.kLeftRearMotorId, MotorType.kBrushless);
+    	mLeftRearDrive = new CANSparkMax(Setup.kRightRearMotorId, MotorType.kBrushless);
     	mLeftRearDrive.set(0);
-    	mLeftRearDrive.setInverted(false);
+    	mLeftRearDrive.setInverted(true);
 		//mLeftRearDrive.setRampRate(.2);
 		
-    	mRightRearDrive = new CANSparkMax(Setup.kRightRearMotorId, MotorType.kBrushless);
+    	mRightRearDrive = new CANSparkMax(Setup.kLeftRearMotorId, MotorType.kBrushless);
     	mRightRearDrive.set(0);
-		mRightRearDrive.setInverted(true);
+		mRightRearDrive.setInverted(false);
 		//mRightRearDrive.setRampRate(.2);
     
 		}
@@ -82,8 +82,8 @@ public class Drivetrain extends Subsystem {
    */
     public void setTankDriveSpeed(double left, double right, double scale){
     	
-		mLeftSpeed = -BasicCosineMotionProfile(left, scale);
-		mRightSpeed = BasicCosineMotionProfile(right, scale);
+		mLeftSpeed = BasicCosineMotionProfile(left, scale);
+		mRightSpeed = -BasicCosineMotionProfile(right, scale);
 		
 	}
 
@@ -98,13 +98,13 @@ public class Drivetrain extends Subsystem {
 	{
 		if(pixy.blockDetected() && !pixy.inDeadzone())
 		{
-			mLeftSpeed = BasicCosineMotionProfile(pixy.value(), scale);
-			mRightSpeed = BasicCosineMotionProfile(pixy.value(), scale);
+			mLeftSpeed += -BasicCosineMotionProfile(pixy.value(), scale);
+			mRightSpeed += BasicCosineMotionProfile(pixy.value(), scale);
 		}
 		else
 		{
-			mLeftSpeed = 0;
-			mRightSpeed = 0;
+			mLeftSpeed += 0;
+			mRightSpeed += 0;
 		}
 	}
 
