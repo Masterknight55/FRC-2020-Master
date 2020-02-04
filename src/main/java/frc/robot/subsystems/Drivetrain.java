@@ -71,13 +71,28 @@ public class Drivetrain extends Subsystem {
     public DriveGear getDriveGear(){
     	return mDriveGear;
     }
-    
-    public void setTankDriveSpeed(double left, double right){
+	
+
+	/**
+   * This Method sets the Tank Drive Speed for the Left and Right
+   * This Method also uses a Baic Cosine Motion Profile that's Scale can be set 
+   * @param left This is the Left Speed
+   * @param right This is the Right Speed
+   * @param scale This it the Cosine Motion Profile Scale 
+   */
+    public void setTankDriveSpeed(double left, double right, double scale){
     	
-		mLeftSpeed = -BasicCosineMotionProfile(left, 1.5);
-		mRightSpeed = BasicCosineMotionProfile(right, 1.5);
+		mLeftSpeed = -BasicCosineMotionProfile(left, scale);
+		mRightSpeed = BasicCosineMotionProfile(right, scale);
 		
 	}
+
+	/**
+   * This double returns values based on a Cosine Motion Profile graph.
+   * Here is the equation: (2 * (Math.cos(input * scale + Math.PI) + 1)
+   * @param input This is x value put into the equation. For example with a drive train it would be the analog input.
+   * @param scale This it the Cosine Motion Profile Scale. It is multiplied by the input to make the graph steeper. 
+   */
 	
 	public double BasicCosineMotionProfile(double input, double scale)
     {
@@ -94,7 +109,9 @@ public class Drivetrain extends Subsystem {
 				return 0;
 			}
      
-    }
+	}
+	
+
 
     
 
