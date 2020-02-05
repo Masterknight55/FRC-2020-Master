@@ -25,7 +25,8 @@ public class DriveStraightActionDistance implements Action {
 	private double mRotationalMinSpeed = .03;	
 	
     public DriveStraightActionDistance(double distance) {
-    	mDistanceSetPoint = distance;
+        mDistanceSetPoint = distance;
+
     }
     
     public DriveStraightActionDistance(double distance, double maxSpeed) {
