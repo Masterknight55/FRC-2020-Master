@@ -28,6 +28,8 @@ public class Intake extends Subsystem
  private double mIntakeMotorSpeed;
  private boolean IntakeArmSolenoid; 
 
+     
+    
     public void IntakeArmUp()
     {
         IntakeArmSolenoid = true;
@@ -50,6 +52,10 @@ public class Intake extends Subsystem
         mIntakeMotorSpeed = -.25;
     }
 
+    /**This Method Updates the Intakes Percent output, and Motor Speed.
+     * It also updates Both Intake Arm Solenoids by Setting them Equal to IntakeArmSolenoid.
+     * The Updates are Sent to Smart Dashboard
+     */
     @Override
     public void updateSubsystem()
     {
