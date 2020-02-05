@@ -1,13 +1,16 @@
 package frc.robot.subsystems;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import java.lang.Math;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.MotionProfile;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import frc.robot.Setup;
 
 
@@ -32,6 +35,10 @@ public class Drivetrain extends Subsystem {
 	//Motion Profile
 	MotionProfile mDriveTrainMotionProfile;
 
+	//Encoders
+	public Encoder mLeftEncoder;
+	public Encoder mRightEncoder; 
+
     public Drivetrain(){
 	
 		mSolenoid = new Solenoid(Setup.kShifterSolenoidId);
@@ -55,6 +62,22 @@ public class Drivetrain extends Subsystem {
     	mRightRearDrive.set(0);
 		mRightRearDrive.setInverted(false);
 		//mRightRearDrive.setRampRate(.2);
+
+		//Encoders
+		final double ticksPerRev = 1024;
+		final double pi = 3.14;
+		final double radius = 3;
+		final double calculated = (2*pi)/ticksPerRev*radius;
+
+		mLeftEncoder = new Encoder(1, 2);
+		mLeftEncoder.setDistancePerPulse(calculated);
+		mLeftEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
+		mLeftEncoder.setReverseDirection(false);
+
+		mRightEncoder = new Encoder(3, 4);
+		mRightEncoder.setDistancePerPulse(calculated);
+		mRightEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
+		mRightEncoder.setReverseDirection(true);
     
 		}
     
@@ -133,7 +156,14 @@ public class Drivetrain extends Subsystem {
      
 	}
 	
-
+	public void resetEncoders(){
+    	mLeftEncoder.reset();
+    	mRightEncoder.reset();
+	}
+	
+	public double getDistance(){
+    	return (mLeftEncoder.getDistance() + mRightEncoder.getDistance()) / 2.0;
+    }
 
     
 
