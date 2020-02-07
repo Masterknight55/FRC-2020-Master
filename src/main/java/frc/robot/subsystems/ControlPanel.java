@@ -80,11 +80,13 @@ public class ControlPanel extends Subsystem
 
 /**
    * This method turns the wheel to the FMS Color which is set through the Set FMSColor Method. 
+   * The Set FMSColor method is called in Tele-Op perodic. It also checks if the FMS color is null to avoid explosions. 
    */
    public void TurnToFMSColor()
    {
 
-    if(currentColor == FMSColor)
+
+    if(FMSColor != null && currentColor == FMSColor)
     {
         mControlPanelWheelSpeed = 0;
     }
