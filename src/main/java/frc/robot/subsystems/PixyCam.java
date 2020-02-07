@@ -25,19 +25,29 @@ public class PixyCam {
     private static final double outerDeadzone = .95;
 
     //Decleares the PixyCam object and creates the PixyInput analogPort
+    /**
+     * This method creates a Pixycam object at the specified analog port
+     * @param analogPort The analog port that the PixyCam is plugged into
+     */
     public PixyCam(int analogPort)
     {
         this.analogPort = analogPort;
         PixyInput = new AnalogInput(analogPort);
     }
 
-    //Returns a value between -1 and 1, -1 being far left and 1 being far right
+    /**
+     * This gets the value of the PixyCam
+     * @return Returns a value between -1 and 1, -1 being far left and 1 being far right
+     */
     public double value()
     {
         return (((double)(PixyInput.getValue()) - 1500.0) / 1500.0);
     }
 
-    //Returns a boolean, "true" if a block is detected
+    /**
+     * This returns a boolean of the block detected
+     * @return True if a block is detected, false otherwise
+     */
     public boolean blockDetected()
     {
         if (Math.abs(this.value()) < outerDeadzone)
@@ -47,7 +57,10 @@ public class PixyCam {
         return false;
     }
 
-    //Returns a boolean, "true" if a block is in inner deadzone
+    /**
+     * This returns a boolean of the block inside of the deadzone
+     * @return True if a block is in dead zone, false otherwise
+     */
     public boolean inDeadzone()
     {
         if (Math.abs(this.value()) < innerDeadzone)
