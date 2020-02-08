@@ -16,13 +16,14 @@ import edu.wpi.first.wpilibj.Encoder;
 /**
  * Add your docs here.
  */
+/*
 public class ChaseBall implements Action
 {
     private double mLeftSpeed;
     private double mRightSpeed;
     private int scale = 1;
     private Drivetrain mDrivetrain = Drivetrain.getInstance();
-    private PixyCam pixy = PixyCam.getInstance();
+    //You made an oopsie: private PixyCam pixy = PixyCam.getInstance();
 
     public ChaseBall()
     {
@@ -67,3 +68,4 @@ public class ChaseBall implements Action
 	}
         
 }
+*/

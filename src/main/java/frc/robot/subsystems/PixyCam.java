@@ -26,18 +26,19 @@ public class PixyCam extends Subsystem{
     private static final double outerDeadzone = .95;
 
     //InstanceGetting
+    /*
     static PixyCam mInstance = new PixyCam(0);
     public static PixyCam getInstance() {
         return mInstance;
 	}
-
+    */
     //Decleares the PixyCam object and creates the PixyInput analogPort
     /**
      * This method creates a Pixycam object at the specified analog port
      * @param analogPort The analog port that the PixyCam is plugged into
      */
     public PixyCam(int analogPort)
-    {
+    { 
         this.analogPort = analogPort;
         PixyInput = new AnalogInput(analogPort);
         int age = 0;
@@ -72,6 +73,15 @@ public class PixyCam extends Subsystem{
     public boolean inDeadzone()
     {
         if (Math.abs(this.value()) < innerDeadzone)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean inBigDeadzone()
+    {
+        if (Math.abs(this.value()) < innerDeadzone * 3)
         {
             return true;
         }

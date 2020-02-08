@@ -135,18 +135,18 @@ public class Drivetrain extends Subsystem {
 	{
 		if(pixy.blockDetected() && !pixy.inDeadzone())
 		{
-			mLeftSpeed += -BasicCosineMotionProfile(pixy.value(), scale);
-			mRightSpeed += BasicCosineMotionProfile(pixy.value(), scale);
+			mLeftSpeed += -BasicCosineMotionProfile(pixy.value(), scale) + .5;
+			mRightSpeed += BasicCosineMotionProfile(pixy.value(), scale) + .5;
 		}
-		else if(pixy.blockDetected() && pixy.inDeadzone())
+		else if(pixy.blockDetected() && pixy.inBigDeadzone())
 		{
 			mLeftSpeed += -BasicCosineMotionProfile(pixy.value(), scale) + 1;
-			mRightSpeed += BasicCosineMotionProfile(pixy.value(), scale) + -1;
+			mRightSpeed += BasicCosineMotionProfile(pixy.value(), scale) + 1;
 		}
 		else
 		{
-			mLeftSpeed += 0;
-			mRightSpeed += 0;
+			mLeftSpeed += .1;
+			mRightSpeed += -.1;
 		}
 	}
 

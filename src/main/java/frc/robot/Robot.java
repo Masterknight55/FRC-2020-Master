@@ -73,7 +73,7 @@ public class Robot extends TimedRobot  {
   Setup mSetup;
   Drivetrain mDrivetrain;
   LED mLED;
-  Delivery mDelivery;
+//  Delivery mDelivery;
   ControlPanel mControlPanel;
   Intake mIntake;
   Climber mClimber;
@@ -175,13 +175,13 @@ public void manual()
       //mDrivetrain.setTankDriveSpeed(-dpadSpeed, dpadSpeed);
     }
 
-    else if(mSetup.getDriverRightStickButton())
+    else if(mSetup.getDriverYbutton())
     {
       mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
       mDrivetrain.autoAlign(mPixycam, 1);
     }
 
-    else if(mSetup.getDriverLeftStickButton())
+    else if(mSetup.getDriverXButton())
     {
       mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
       mDrivetrain.chaseBall(mPixycam, 1);
@@ -212,7 +212,7 @@ public void manual()
     }
     else
     {
-      mIntake.stop();
+ //     mIntake.stop();
     }
 
     
@@ -224,15 +224,15 @@ public void manual()
    */  
     if(mSetup.getDriverLtBoolean())
     {
-      mDelivery.Deliver();
+    //  mDelivery.Deliver();
     }
-    else if(mSetup.getDriverYbutton())
-    {
-      mDelivery.Swallow();
-    }
+    // else if(mSetup.getDriverYbutton())
+    // {
+    //   mDelivery.Swallow();
+    // }
     else
     {
-      mDelivery.stop();
+    //  mDelivery.stop();
     }
 
 
@@ -255,10 +255,10 @@ public void manual()
       mClimber.Fall();
     }
 
-    if(mSetup.getSecondaryDriverXButton())
-    {
-      mClimber.locked();
-    }
+    // if(mSetup.getSecondaryDriverXButton())
+    // {
+    //   mClimber.locked();
+    // }
 
      //Control Panel Controller 
     //--------------------------------------------------
@@ -295,7 +295,7 @@ public void manual()
     mSetup = Setup.getInstance();
     mDrivetrain = Drivetrain.getInstance();
     mLED = LED.getInstance();
-    mDelivery = Delivery.getInstance();
+    //mDelivery = Delivery.getInstance();
     mControlPanel = ControlPanel.getInstance();
     mSmartDashboardInteractions = new SmartDashboardInteractions();
     mSmartDashboardInteractions.initWithDefaults();

@@ -121,6 +121,11 @@ this.ControlBoard();
       return mDriverStick.getRawButton(4);
     }
 
+    public boolean getDriverXButton()
+    {
+      return mDriverStick.getRawButton(3);
+    }
+
     public boolean getDriverLeftStickButton(){
       return mDriverStick.getRawButton(9);
     }
