@@ -7,7 +7,7 @@ public class IntakeAction implements Action
     Intake mIntake;
 
     public  IntakeAction() {
-        mIntake = mIntake.getInstance();
+        mIntake = Intake.getInstance();
     }
     
     @Override
