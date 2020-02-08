@@ -1,4 +1,4 @@
-package frc.robot.subsystems;
+ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -123,6 +123,25 @@ public class Drivetrain extends Subsystem {
 		{
 			mLeftSpeed += -BasicCosineMotionProfile(pixy.value(), scale);
 			mRightSpeed += BasicCosineMotionProfile(pixy.value(), scale);
+		}
+		else
+		{
+			mLeftSpeed += 0;
+			mRightSpeed += 0;
+		}
+	}
+
+	public void chaseBall(PixyCam pixy, double scale)
+	{
+		if(pixy.blockDetected() && !pixy.inDeadzone())
+		{
+			mLeftSpeed += -BasicCosineMotionProfile(pixy.value(), scale);
+			mRightSpeed += BasicCosineMotionProfile(pixy.value(), scale);
+		}
+		else if(pixy.blockDetected() && pixy.inDeadzone())
+		{
+			mLeftSpeed += -BasicCosineMotionProfile(pixy.value(), scale) + 1;
+			mRightSpeed += BasicCosineMotionProfile(pixy.value(), scale) + -1;
 		}
 		else
 		{
