@@ -103,15 +103,30 @@ public class Robot extends TimedRobot  {
 
     
   }
+
   
+/**
+   * This is the Manual Control Method. 
+   * The reason this is in a method is so then if you want you can call it in different areas like Auto or Tele-Op
+   * Each one of the Subsystems on the Robot are split into sections. 
+   * The Controls are being called from the mSetup file. This has bothh of the controllers and the switch pad. 
+   * Each control needs a comment about what it needs to accomplish. 
+   */  
 public void manual()
 {
     
     //Controls
 
-    //Primary Driver
+    //Primary Driver  
+    //--------------------------------------------------
+
 
     //Drive train Gears 
+    /**
+   * Here are the controls for the Drive Train Gears
+   * The Gears on our robot are like gears on a car. Low gear is slower and has more touque.
+   * High gear has more speed but less touque (it can cause wheel spin if on surfaces without alot of friction)
+   */  
 		if(mSetup.getDriverRb()) {
 			mDrivetrain.highGear();
 		}
@@ -172,35 +187,57 @@ public void manual()
     }
 
     //Intake
-
+    //--------------------------------------------------
+     /**
+   * Here are the controls for the Intake Mech. These controls use the triggers as a boolean value. 
+   * This means that if the trigger is pushed after a dead zone it will return true. 
+   * You can also get the analog value of the trigger if needed. 
+   * The reason for using a else if statement menas only one of the methods can be called at once. 
+   * And rememebr that you need to stop the intake when there is no button being pressed!
+   */  
     if(mSetup.getDriverLtBoolean())
     {
       mIntake.IntakePowercell();
     }
-
-    if(mSetup.getDriverBbutton())
+    else if(mSetup.getDriverBbutton())
     {
       mIntake.OuttakePowercell();
     }
+    else
+    {
+      mIntake.stop();
+    }
+
+    
 
     //Delivery
-
+    //--------------------------------------------------
+     /**
+   * Here are the controls for the Delivery.  
+   */  
     if(mSetup.getDriverLtBoolean())
     {
       mDelivery.Deliver();
     }
-
-    if(mSetup.getDriverYbutton())
+    else if(mSetup.getDriverYbutton())
     {
       mDelivery.Swallow();
+    }
+    else
+    {
+      mDelivery.stop();
     }
 
 
     //Secondary Driver
+    //--------------------------------------------------
 
 
     //Climber 
-
+    //--------------------------------------------------
+    /**
+   *   
+   */  
     if(mSetup.getSecondaryDriverRbButton())
     {
       mClimber.Climb();
@@ -216,14 +253,24 @@ public void manual()
       mClimber.locked();
     }
 
+     //Control Panel Controller 
+    //--------------------------------------------------
+    /**
+   * Here are the controls for the control panel controller. 
+   * It has a few different methods like turning to the FMS color and turning the wheel a certain amount of times.
+   * 
+   */  
     if(mSetup.getSecondaryDriverAButton())
     {
       mControlPanel.TurnToFMSColor();
     }
-
-    if(mSetup.getSecondaryDriverBButton())
+    else if(mSetup.getSecondaryDriverBButton())
     {
       mControlPanel.TurnThisManyTimes(1);
+    }
+    else
+    {
+      mControlPanel.stop();
     }
 
      //LED Lights
