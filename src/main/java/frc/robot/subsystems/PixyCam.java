@@ -14,10 +14,11 @@ import frc.robot.Setup;
 /**
  * Add your docs here.
  */
-public class PixyCam {
+public class PixyCam extends Subsystem{
 
     //Declares Instance Variables
     private int analogPort;
+    private int age;
     private AnalogInput PixyInput;
 
     //The inner deadzone is when the target is close enough to the center of the camera.  The outer deadzone makes sure the robot does not read a false detection
@@ -33,6 +34,7 @@ public class PixyCam {
     {
         this.analogPort = analogPort;
         PixyInput = new AnalogInput(analogPort);
+        int age = 0;
     }
 
     /**
@@ -70,11 +72,29 @@ public class PixyCam {
         return false;
     }
 
+    @Override
+    public void updateSubsystem() {
+        if(blockDetected())
+        {
+            age++;
+        }
+        else
+        {
+            age = 0;
+        }
+    }
     //Puts a value between -1 and 1 on smart dashboard
+    @Override
     public void outputToSmartDashboard()
     {
 
         SmartDashboard.putNumber("PixyCam", this.value());
+
+    }
+
+    public void stop()
+    {
+        //PixyInput.stop();
 
     }
 }
