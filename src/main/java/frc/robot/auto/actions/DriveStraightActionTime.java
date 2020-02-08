@@ -53,7 +53,7 @@ public class DriveStraightActionTime implements Action {
 
         mIsForward = isForward;
         mTimeToWait = feetPerSecond / distance;
-        mLinearSpeed = LinearSpeed;
+		mLinearSpeed = LinearSpeed;
 
     }
 
@@ -78,15 +78,15 @@ public class DriveStraightActionTime implements Action {
 
     	mCurrentTime = Timer.getFPGATimestamp();
 
-    	// if (mIsForward) {
+    	 if (mIsForward) {
 
-    	// 	mDrivetrain.setTankDriveSpeed(mLinearSpeed + mAngleCorrectionSpeed, mLinearSpeed + -mAngleCorrectionSpeed);
+    	 	mDrivetrain.setTankDriveSpeed(mLinearSpeed + mAngleCorrectionSpeed, mLinearSpeed + -mAngleCorrectionSpeed, 1);
 
-    	// } else {
+    	 } else {
 
-    	// 	mDrivetrain.setTankDriveSpeed(-mLinearSpeed + mAngleCorrectionSpeed, -mLinearSpeed + -mAngleCorrectionSpeed);
+    	 	mDrivetrain.setTankDriveSpeed(-mLinearSpeed + mAngleCorrectionSpeed, -mLinearSpeed + -mAngleCorrectionSpeed, 1);
 
-    	// }
+    	 }
 
 	}
 
