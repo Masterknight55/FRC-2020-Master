@@ -26,12 +26,12 @@ public class PixyCam extends Subsystem{
     private static final double outerDeadzone = .95;
 
     //InstanceGetting
-    /*
-    static PixyCam mInstance = new PixyCam(0);
-    public static PixyCam getInstance() {
-        return mInstance;
+    
+    //static PixyCam mInstance = new PixyCam(0);
+    public PixyCam getInstance() {
+        return this;
 	}
-    */
+    
     //Decleares the PixyCam object and creates the PixyInput analogPort
     /**
      * This method creates a Pixycam object at the specified analog port

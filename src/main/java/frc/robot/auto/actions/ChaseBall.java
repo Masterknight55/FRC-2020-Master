@@ -16,18 +16,18 @@ import edu.wpi.first.wpilibj.Encoder;
 /**
  * Add your docs here.
  */
-/*
+
 public class ChaseBall implements Action
 {
     private double mLeftSpeed;
     private double mRightSpeed;
     private int scale = 1;
     private Drivetrain mDrivetrain = Drivetrain.getInstance();
-    //You made an oopsie: private PixyCam pixy = PixyCam.getInstance();
+    private PixyCam pixy;
 
-    public ChaseBall()
+    public ChaseBall(PixyCam pixycam)
     {
-        
+        pixy = pixycam.getInstance();
     }
 
 	@Override
@@ -37,21 +37,9 @@ public class ChaseBall implements Action
 
     @Override
 	public void update() {
-        if(pixy.blockDetected() && !pixy.inDeadzone())
-		{
-			mLeftSpeed = pixy.value();
-			mRightSpeed = pixy.value();
-		}
-		else if(pixy.blockDetected() && pixy.inDeadzone())
-		{
-			mLeftSpeed = 1;
-			mRightSpeed = 1;
-		}
-		else
-		{
-			mLeftSpeed = 0;
-			mRightSpeed = 0;
-		}
+		mLeftSpeed = 0;
+		mRightSpeed = 0;
+        mDrivetrain.chaseBall(pixy, 1);
     	mDrivetrain.setTankDriveSpeed(mLeftSpeed, mRightSpeed, 1);
 	}
     
@@ -68,4 +56,3 @@ public class ChaseBall implements Action
 	}
         
 }
-*/
