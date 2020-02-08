@@ -121,7 +121,13 @@ this.ControlBoard();
       return mDriverStick.getRawButton(4);
     }
 
+    public boolean getDriverLeftStickButton(){
+      return mDriverStick.getRawButton(9);
+    }
 
+    public boolean getDriverRightStickButton(){
+      return mDriverStick.getRawButton(10);
+    }
 
     //SECONDARY CONTROLLER
 

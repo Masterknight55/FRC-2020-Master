@@ -175,11 +175,18 @@ public void manual()
       //mDrivetrain.setTankDriveSpeed(-dpadSpeed, dpadSpeed);
     }
 
-    else if(mSetup.getDriverYbutton())
+    else if(mSetup.getDriverRightStickButton())
     {
       mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
       mDrivetrain.autoAlign(mPixycam, 1);
     }
+
+    else if(mSetup.getDriverLeftStickButton())
+    {
+      mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
+      mDrivetrain.chaseBall(mPixycam, 1);
+    }
+
     else
     {
       mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
