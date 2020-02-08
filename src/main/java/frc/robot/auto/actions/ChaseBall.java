@@ -33,24 +33,18 @@ public class ChaseBall implements Action
 	public void start() {
 		mDrivetrain.lowGear();
 	}
-    /*
-    if(pixy.blockDetected() && !pixy.inDeadzone())
-		{
-			mLeftSpeed += -BasicCosineMotionProfile(pixy.value(), scale);
-			mRightSpeed += BasicCosineMotionProfile(pixy.value(), scale);
-		}
-		else
-		{
-			mLeftSpeed += 0;
-			mRightSpeed += 0;
-        }
-        */
+
     @Override
 	public void update() {
         if(pixy.blockDetected() && !pixy.inDeadzone())
 		{
-			mLeftSpeed += pixy.value();
-			mRightSpeed += pixy.value();
+			mLeftSpeed = pixy.value();
+			mRightSpeed = pixy.value();
+		}
+		else if(pixy.blockDetected() && pixy.inDeadzone())
+		{
+			mLeftSpeed = 1;
+			mRightSpeed = 1;
 		}
 		else
 		{
@@ -62,7 +56,7 @@ public class ChaseBall implements Action
     
     @Override
 	public boolean isFinished() {
-		return false;
+		return !pixy.blockDetected();
     }
     
 	@Override
