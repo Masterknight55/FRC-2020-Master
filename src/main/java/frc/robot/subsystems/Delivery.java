@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 import frc.robot.Setup;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -16,7 +16,7 @@ public class Delivery extends Subsystem
     }
 
 	Setup mSetup;
-	private VictorSPX mConveyor;
+	private TalonSRX mConveyor;
     public DigitalInput mConveyorPhotoEye1;
     public DigitalInput mConveyorPhotoEye2;
     public DigitalInput mConveyorPhotoEye3;
@@ -26,7 +26,7 @@ public Delivery() {
 		
 	mSetup = new Setup();
 
-    mConveyor= new VictorSPX(Setup.kDeliveryConveyorMotor);
+    mConveyor= new TalonSRX(Setup.kDeliveryConveyorMotor);
     mConveyor.setInverted(false);
     mConveyor.set(ControlMode.PercentOutput, 0);
 
