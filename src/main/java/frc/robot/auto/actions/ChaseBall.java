@@ -48,8 +48,8 @@ public class ChaseBall implements Action
 		}
 		else
 		{
-			mLeftSpeed += 0;
-			mRightSpeed += 0;
+			mLeftSpeed = 0;
+			mRightSpeed = 0;
 		}
     	mDrivetrain.setTankDriveSpeed(mLeftSpeed, mRightSpeed, 1);
 	}
