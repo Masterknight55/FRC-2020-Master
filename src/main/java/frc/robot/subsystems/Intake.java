@@ -10,8 +10,13 @@ public class Intake extends Subsystem
 {
     private VictorSPX mIntake;
 	private Solenoid mIntakeArmLeftSolenoid;
-	private Solenoid mIntakeArmRightSolenoid;
+    private Solenoid mIntakeArmRightSolenoid;
 
+    static Intake mInstance = new Intake();
+    public static Intake getInstance() {
+        return mInstance;
+	}
+	
 
  public Intake() 
  {
