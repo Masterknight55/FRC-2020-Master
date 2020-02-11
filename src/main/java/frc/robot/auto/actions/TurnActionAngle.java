@@ -2,12 +2,14 @@ package frc.robot.auto.actions;
 
 import frc.robot.Setup;
 import frc.robot.subsystems.Drivetrain;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+//import edu.wpi.first.wpilibj.ADXRS450_Gyro; //FRC gyroscope library
+import com.kauailabs.navx.frc.AHRS;//NavX Library
 
 public class TurnActionAngle implements Action {
 
 	private Drivetrain mDrivetrain = Drivetrain.getInstance();
-	private ADXRS450_Gyro mGyro = Setup.getInstance().mGyro;
+	//private ADXRS450_Gyro mGyro = Setup.getInstance().mGyro; //FRC gyroscope
+	private AHRS mGyro = new AHRS(); //NavX
 	
 	private double mAngleSetpoint;
 	private double mAngleCorrectionSpeed;
@@ -20,21 +22,25 @@ public class TurnActionAngle implements Action {
 	private double mRotationalDeadzone = 1.5;
 	
     public TurnActionAngle(double angle) {
-        mAngleSetpoint = mGyro.getAngle() + angle;
+		//mAngleSetpoint = mGyro.getAngle() + angle; //FRC gyroscope
+		mAngleSetpoint = mGyro.getYaw() + angle; //NavX
     }
     
     public TurnActionAngle(double angle, double rotationalDeadzone) {
-        mAngleSetpoint = mGyro.getAngle() + angle;
+		//mAngleSetpoint = mGyro.getAngle() + angle; //FRC gyroscope
+		mAngleSetpoint = mGyro.getYaw() + angle; //NavX
         mRotationalDeadzone = rotationalDeadzone;
     }
     
     public TurnActionAngle(double angle, int requiredErrorCounts) {
-        mAngleSetpoint = mGyro.getAngle() + angle;
+		//mAngleSetpoint = mGyro.getAngle() + angle; //FRC gyroscope
+		mAngleSetpoint = mGyro.getYaw() + angle; //NavX
         mRequiredErrorCounts = requiredErrorCounts;
     }
     
     public TurnActionAngle(double angle, double RotationalMaxSpeed, double RotationalMinSpeed, double RotationalDeadzone) {
-        mAngleSetpoint = mGyro.getAngle() + angle;
+		//mAngleSetpoint = mGyro.getAngle() + angle; //FRC gyroscope
+		mAngleSetpoint = mGyro.getYaw() + angle; //NavX
         
         mRotationalMaxSpeed = RotationalMaxSpeed;
     	mRotationalMinSpeed = RotationalMinSpeed;
@@ -51,7 +57,8 @@ public class TurnActionAngle implements Action {
     	calcGyroSpeed();
 		mDrivetrain.setTankDriveSpeed(mAngleCorrectionSpeed, -mAngleCorrectionSpeed,1);
 		//System.out.println("error = " + calcGyroError() + " deadzone is " + mRotationalDeadzone + " correction speed = " + mAngleCorrectionSpeed );
-		System.out.println(mGyro.getAngle());
+		//System.out.println(mGyro.getAngle()); //FRC gyroscope
+		System.out.println(mGyro.getYaw()); //NavX
 	}
     
     @Override
@@ -69,7 +76,8 @@ public class TurnActionAngle implements Action {
 	}
 	
 	private double calcGyroError() {
-		return mAngleSetpoint - mGyro.getAngle();
+		//return mAngleSetpoint - mGyro.getAngle(); //FRC gyroscope
+		return mAngleSetpoint - mGyro.getYaw(); //NavX
 	}
 	
 	private void calcGyroSpeed() {

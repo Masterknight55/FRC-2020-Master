@@ -65,7 +65,6 @@ import frc.robot.subsystems.LED;
 import frc.robot.subsystems.PixyCam;
 import frc.robot.auto.AutoExecuter;
 
-//HI IT WORKS
 
 public class Robot extends TimedRobot  {
 
