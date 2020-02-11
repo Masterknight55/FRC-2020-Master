@@ -85,7 +85,7 @@ public class Robot extends TimedRobot  {
 		
     mDrivetrain.updateSubsystem();
     //mControlPanel.updateSubsystem();
-    //mIntake.updateSubsystem();
+    mIntake.updateSubsystem();
     //mClimber.updateSubsystem();
     mLED.updateSubsystem();
     mDelivery.updateSubsystem();
@@ -98,7 +98,7 @@ public class Robot extends TimedRobot  {
     mDrivetrain.lowGear();
     //mControlPanel.stop();
     //mClimber.stop();
-   // mIntake.stop();
+    mIntake.stop();
     mLED.stop();
     mDelivery.stop();
     
