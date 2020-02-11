@@ -10,7 +10,12 @@ import frc.robot.Setup;
 
 public class Climber extends Subsystem {
 	
- 
+    static Climber mInstance = new Climber();
+
+    public static Climber getInstance() {
+    	return mInstance;
+    }
+
     // Drive Motors
     VictorSPX mClimber1;
     VictorSPX mClimber2;
@@ -159,8 +164,8 @@ public class Climber extends Subsystem {
     @Override
     public void stop(){
 
-        mClimberMotorSpeed = 0;
-        mClimberSolenoid = true;
+        // mClimberMotorSpeed = 0;
+        // mClimberSolenoid = true;
         
     }
    

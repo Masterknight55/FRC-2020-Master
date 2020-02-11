@@ -16,17 +16,17 @@ public class Delivery extends Subsystem
     }
 
 	Setup mSetup;
-	private TalonSRX mConveyor;
-    public DigitalInput mConveyorPhotoEye1;
-    public DigitalInput mConveyorPhotoEye2;
-    public DigitalInput mConveyorPhotoEye3;
-    public DigitalInput mConveyorPhotoEye4;
+	TalonSRX mConveyor;
+    DigitalInput mConveyorPhotoEye1;
+    DigitalInput mConveyorPhotoEye2;
+    DigitalInput mConveyorPhotoEye3;
+    DigitalInput mConveyorPhotoEye4;
 
 public Delivery() {
 		
 	mSetup = new Setup();
 
-    mConveyor= new TalonSRX(Setup.kDeliveryConveyorMotor);
+    mConveyor = new TalonSRX(Setup.kDeliveryConveyorMotor);
     mConveyor.setInverted(false);
     mConveyor.set(ControlMode.PercentOutput, 0);
 
@@ -94,12 +94,12 @@ public Delivery() {
 
     public void Deliver()
     {
-        SetConveryorSpeed(1);
+        SetConveryorSpeed(.25);
     }
 
     public void Swallow()
     {
-        SetConveryorSpeed(-1);
+        SetConveryorSpeed(-.25);
     }
 
 
@@ -123,7 +123,8 @@ public Delivery() {
 	@Override
 	public void stop(){
 		
-		//System.out.println("Stopping Intake");
+        //System.out.println("Stopping Intake");
+        mConveyor.set(ControlMode.PercentOutput,0);
 	}
 
 }

@@ -38,7 +38,7 @@ public class LED extends Subsystem
         mLEDPWMB = new PWM(Setup.kLEDPWMB);
         mLEDPWMB.setBounds(1000, 50, 500, 50, 500);
 
-        mLEDPower = new DigitalOutput(Setup.kLEDPower);
+        mLEDPower = new DigitalOutput(10);
 
     }   
 

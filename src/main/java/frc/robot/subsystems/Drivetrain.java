@@ -69,12 +69,12 @@ public class Drivetrain extends Subsystem {
 		final double radius = 3;
 		final double calculated = (2*pi)/ticksPerRev*radius;
 
-		mLeftEncoder = new Encoder(1, 2);
+		mLeftEncoder = new Encoder(8, 9);
 		mLeftEncoder.setDistancePerPulse(calculated);
 		mLeftEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
 		mLeftEncoder.setReverseDirection(false);
 
-		mRightEncoder = new Encoder(3, 4);
+		mRightEncoder = new Encoder(7, 6);
 		mRightEncoder.setDistancePerPulse(calculated);
 		mRightEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
 		mRightEncoder.setReverseDirection(true);

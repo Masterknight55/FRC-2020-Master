@@ -75,7 +75,7 @@ public class Robot extends TimedRobot  {
   Delivery mDelivery;
   ControlPanel mControlPanel;
   Intake mIntake;
-  Climber mClimber;
+  //Climber mClimber;
   SmartDashboardInteractions mSmartDashboardInteractions;
   PixyCam mPixycam = new PixyCam(0);
 
@@ -84,10 +84,10 @@ public class Robot extends TimedRobot  {
   public void updateAllSubsystems(){
 		
     mDrivetrain.updateSubsystem();
-    //mControlPanel.updateSubsystem();
+    mControlPanel.updateSubsystem();
     mIntake.updateSubsystem();
     //mClimber.updateSubsystem();
-    mLED.updateSubsystem();
+    //mLED.updateSubsystem();
     mDelivery.updateSubsystem();
     
   }
@@ -96,10 +96,10 @@ public class Robot extends TimedRobot  {
     //System.out.println("Robot Stopping");
 		mDrivetrain.stop();
     mDrivetrain.lowGear();
-    //mControlPanel.stop();
+    mControlPanel.stop();
     //mClimber.stop();
     mIntake.stop();
-    mLED.stop();
+    //mLED.stop();
     mDelivery.stop();
     
   }
@@ -149,13 +149,13 @@ public void manual()
     //D Pad Right
     else if(mSetup.getDriverPov() == 90 || mSetup.getDriverPov() == 45 || mSetup.getDriverPov() == 135)
     {
-      mClimber.MoveRight();
+      //mClimber.MoveRight();
     }
 
     //D Pad Left
     else if(mSetup.getDriverPov() == 270 || mSetup.getDriverPov() == 225 || mSetup.getDriverPov() == 315)
     {
-      mClimber.MoveLeft();
+      //mClimber.MoveLeft();
     }
 
     
@@ -233,12 +233,12 @@ public void manual()
    */  
     if(mSetup.getSecondaryDriverRbButton())
     {
-      mClimber.Climb();
+      //mClimber.Climb();
     }
 
     if(mSetup.getSecondaryDriverLbButton())
     {
-      mClimber.Fall();
+      //mClimber.Fall();
     }
 
     // if(mSetup.getSecondaryDriverXButton())
@@ -310,9 +310,10 @@ public void GetFMSData() {
 
     mSetup = Setup.getInstance();
     mDrivetrain = Drivetrain.getInstance();
-    mLED = LED.getInstance();
+    //mLED = LED.getInstance();
     mDelivery = Delivery.getInstance();
     mControlPanel = ControlPanel.getInstance();
+    mIntake = Intake.getInstance();
     mSmartDashboardInteractions = new SmartDashboardInteractions();
     mSmartDashboardInteractions.initWithDefaults();
 
