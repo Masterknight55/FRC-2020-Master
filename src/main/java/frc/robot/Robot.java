@@ -66,7 +66,6 @@ import frc.robot.subsystems.PixyCam;
 import frc.robot.auto.AutoExecuter;
 
 
-
 public class Robot extends TimedRobot  {
 
   //Initialize main parts of the robot
