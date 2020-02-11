@@ -73,7 +73,7 @@ public class Robot extends TimedRobot  {
   Setup mSetup;
   Drivetrain mDrivetrain;
   LED mLED;
-//  Delivery mDelivery;
+  Delivery mDelivery;
   ControlPanel mControlPanel;
   Intake mIntake;
   Climber mClimber;
@@ -89,6 +89,7 @@ public class Robot extends TimedRobot  {
     //mIntake.updateSubsystem();
     //mClimber.updateSubsystem();
     mLED.updateSubsystem();
+    mDelivery.updateSubsystem();
     
   }
   
@@ -100,7 +101,7 @@ public class Robot extends TimedRobot  {
     //mClimber.stop();
    // mIntake.stop();
     mLED.stop();
-
+    mDelivery.stop();
     
   }
 
@@ -134,64 +135,49 @@ public void manual()
 			mDrivetrain.lowGear();
     }
     
-    //Dpad and Tank Driver Controls
-    double dpadSpeed = .25;
-
-    if(mSetup.getDriverRtBoolean())
-    {
-      dpadSpeed = dpadSpeed * 2;
-
-    }
-    else
-    {
-      dpadSpeed = .25;
-    }
-    
     //D Pad Up
-    if(mSetup.getDriverPov() == 0 || mSetup.getDriverPov() == 45 || mSetup.getDriverPov() == 315){
-      
+    if(mSetup.getDriverPov() == 0 || mSetup.getDriverPov() == 45 || mSetup.getDriverPov() == 315)
+    {
       mIntake.IntakeArmUp();
-      //mDrivetrain.setTankDriveSpeed(-dpadSpeed, -dpadSpeed);
     }
 
     //D Pad Down
-    else if(mSetup.getDriverPov() == 180 || mSetup.getDriverPov() == 225 || mSetup.getDriverPov() == 135){
-      
+    else if(mSetup.getDriverPov() == 180 || mSetup.getDriverPov() == 225 || mSetup.getDriverPov() == 135)
+    {
       mIntake.IntakeArmDown();
-      //mDrivetrain.setTankDriveSpeed(dpadSpeed, dpadSpeed);
     }
 
     //D Pad Right
-    else if(mSetup.getDriverPov() == 90 || mSetup.getDriverPov() == 45 || mSetup.getDriverPov() == 135){
-      
-      //TODO Add Climber Strafe
-      //mDrivetrain.setTankDriveSpeed(dpadSpeed, -dpadSpeed);
+    else if(mSetup.getDriverPov() == 90 || mSetup.getDriverPov() == 45 || mSetup.getDriverPov() == 135)
+    {
+      mClimber.MoveRight();
     }
 
     //D Pad Left
-    else if(mSetup.getDriverPov() == 270 || mSetup.getDriverPov() == 225 || mSetup.getDriverPov() == 315){
-      
-      //TODO Add Climber Strafe
-      //mDrivetrain.setTankDriveSpeed(-dpadSpeed, dpadSpeed);
+    else if(mSetup.getDriverPov() == 270 || mSetup.getDriverPov() == 225 || mSetup.getDriverPov() == 315)
+    {
+      mClimber.MoveLeft();
     }
 
-    else if(mSetup.getDriverYbutton())
-    {
-      mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
-      mDrivetrain.autoAlign(mPixycam, 1);
-    }
+    
+    //PixyCam Controls
+     if(mSetup.getDriverAButton())
+     {
+       mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
+       mDrivetrain.autoAlign(mPixycam, 1);
+     }
 
-    else if(mSetup.getDriverXButton())
-    {
+     else if(mSetup.getDriverXButton())
+     {
+       mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
+       mDrivetrain.chaseBall(mPixycam, 1);
+     }
+     else
+     {
       mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
-      mDrivetrain.chaseBall(mPixycam, 1);
-    }
+     }
 
-    else
-    {
-      mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
-      
-    }
+    
 
     //Intake
     //--------------------------------------------------
@@ -199,12 +185,13 @@ public void manual()
    * Here are the controls for the Intake Mech. These controls use the triggers as a boolean value. 
    * This means that if the trigger is pushed after a dead zone it will return true. 
    * You can also get the analog value of the trigger if needed. 
-   * The reason for using a else if statement menas only one of the methods can be called at once. 
-   * And rememebr that you need to stop the intake when there is no button being pressed!
+   * The reason for using a else if statement means only one of the methods can be called at once. 
+   * And remember that you need to stop the intake when there is no button being pressed!
    */  
     if(mSetup.getDriverLtBoolean())
     {
       mIntake.IntakePowercell();
+      mDelivery.PushBall();
     }
     else if(mSetup.getDriverBbutton())
     {
@@ -212,7 +199,7 @@ public void manual()
     }
     else
     {
- //     mIntake.stop();
+      mIntake.stop();
     }
 
     
@@ -222,17 +209,17 @@ public void manual()
      /**
    * Here are the controls for the Delivery.  
    */  
-    if(mSetup.getDriverLtBoolean())
+    if(mSetup.getDriverRtBoolean())
     {
-    //  mDelivery.Deliver();
+      mDelivery.Deliver();
     }
-    // else if(mSetup.getDriverYbutton())
-    // {
-    //   mDelivery.Swallow();
-    // }
+     else if(mSetup.getDriverYbutton())
+     {
+       mDelivery.Swallow();
+     }
     else
     {
-    //  mDelivery.stop();
+      mDelivery.stop();
     }
 
 
@@ -287,33 +274,51 @@ public void manual()
 
 }
 
+public void GetFMSData() {
+  String colorData = DriverStation.getInstance().getGameSpecificMessage();
+
+      if(colorData.length() > 0){
+          switch(colorData.charAt(0)){
+              case 'R':
+              mControlPanel.SetFMSColor("Red");
+              SmartDashboard.putString("color", "R");
+              break;
+
+              case 'G':
+              mControlPanel.SetFMSColor("Green");
+              SmartDashboard.putString("color", "G");
+              break;
+
+              case 'B':
+              mControlPanel.SetFMSColor("Blue");
+              SmartDashboard.putString("color", "B");
+              break;
+
+              case 'Y':
+              mControlPanel.SetFMSColor("Yellow");
+              SmartDashboard.putString("color", "Y");
+              break;
+          }
+      }
+}
+
 
 
   @Override
   public void robotInit() {
  
+    System.out.println("Robot Init");
+
     mSetup = Setup.getInstance();
     mDrivetrain = Drivetrain.getInstance();
     mLED = LED.getInstance();
-    //mDelivery = Delivery.getInstance();
+    mDelivery = Delivery.getInstance();
     mControlPanel = ControlPanel.getInstance();
     mSmartDashboardInteractions = new SmartDashboardInteractions();
     mSmartDashboardInteractions.initWithDefaults();
 
-
-
-    System.out.println("Robot Init");
-
-    //Camera Setup
-    /*
-    HttpCamera httpCamera = new HttpCamera("CoprocessorCamera", "frcvision.local:1181/stream.mjpg");
-    CameraServer.getInstance().addCamera(httpCamera);
-    Shuffleboard.getTab("Tab")
-    .add(httpCamera);
-    */
-
     stopAllSubsystems();
-  
+
   }
 
   @Override
@@ -333,15 +338,12 @@ public void manual()
 		
 	}
 		
-
-	
 	@Override
 	public void autonomousPeriodic() {
     manual();
 		updateAllSubsystems();
 	}
 
-  
   @Override
 	public void disabledInit(){
       if (mAutoExecuter != null) {
@@ -362,41 +364,10 @@ public void manual()
 	public void disabledPeriodic() {
 
   //System.out.println("Disabled Periodic");
-
-  }
-
- 
-  
-  public void GetFMSData(){
-    String colorData = DriverStation.getInstance().getGameSpecificMessage();
-
-        if(colorData.length() > 0){
-            switch(colorData.charAt(0)){
-                case 'R':
-                mControlPanel.SetFMSColor("Red");
-                SmartDashboard.putString("color", "R");
-                break;
-
-                case 'G':
-                mControlPanel.SetFMSColor("Green");
-                SmartDashboard.putString("color", "G");
-                break;
-
-                case 'B':
-                mControlPanel.SetFMSColor("Blue");
-                SmartDashboard.putString("color", "B");
-                break;
-
-                case 'Y':
-                mControlPanel.SetFMSColor("Yellow");
-                SmartDashboard.putString("color", "Y");
-                break;
-            }
-        }
   }
 
   @Override
-	public void teleopInit(){
+	public void teleopInit() {
 		stopAllSubsystems();
     mDrivetrain.lowGear();
     System.out.println("Tele Init");
@@ -408,8 +379,6 @@ public void manual()
   public void teleopPeriodic() {
     manual();
     updateAllSubsystems();
-    
-
   }
  
 }
