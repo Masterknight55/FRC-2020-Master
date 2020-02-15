@@ -190,15 +190,16 @@ public void manual()
     if(mSetup.getDriverLtBoolean())
     {
       mIntake.IntakePowercell();
-      mDelivery.PushBall();
+      mDelivery.pushBallUpOne();
     }
     else if(mSetup.getDriverBbutton())
     {
       mIntake.OuttakePowercell();
     }
-    else
+    else if(!mSetup.getDriverRtBoolean())
     {
       mIntake.stop();
+      //mDelivery.stop();
     }
 
     
@@ -214,11 +215,11 @@ public void manual()
     }
      else if(mSetup.getDriverYbutton())
      {
-       mDelivery.Swallow();
+       //mDelivery.Swallow();
      }
-    else
+    else if (!mSetup.getDriverLtBoolean())
     {
-      mDelivery.stop();
+      //mDelivery.stop();
     }
 
 
@@ -246,6 +247,22 @@ public void manual()
     //   mClimber.locked();
     // }
 
+
+    //Test Code
+    if(mSetup.getSecondaryDriverAButton())
+    {
+      mDelivery.SetMoveTo();
+    }
+
+    if(mSetup.getSecondaryDriverBButton())
+    {
+      mDelivery.NewMove();
+    }
+    else if(!mSetup.getSecondaryDriverBButton())
+    {
+      mDelivery.stop();
+    }
+
      //Control Panel Controller 
     //--------------------------------------------------
     /**
@@ -257,7 +274,7 @@ public void manual()
     {
       mControlPanel.TurnToFMSColor();
     }
-    else if(mSetup.getSecondaryDriverBButton())
+    else if(mSetup.getSecondaryDriverYButton())
     {
       mControlPanel.TurnThisManyTimes(1);
     }

@@ -79,14 +79,15 @@ this.ControlBoard();
 
     public boolean getDriverLtBoolean()
     {
-      if(mDriverStick.getRawAxis(2) > 0)
-      {
-        return true;
-      }
-      else
-      {
-        return false;
-      }
+      //return mDriverStick.getRawButton(5);
+       if(mDriverStick.getRawAxis(2) < 0)
+       {
+         return true;
+       }
+       else
+       {
+         return false;
+       }
     }
 
     public boolean getDriverRtBoolean()
