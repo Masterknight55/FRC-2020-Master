@@ -27,7 +27,7 @@ public class Climber extends Subsystem {
     Solenoid  mClimbeStopSolenoid;
     // Digital input
     DigitalInput mClimberBottomPhotoEye;
-    DigitalInput mClimberTopPhotoEye;
+    //DigitalInput mClimberTopPhotoEye;
     
     /**
      * This Method is a Constructor for the Motors and Sensors in the Climber Subsystem
@@ -43,7 +43,7 @@ public class Climber extends Subsystem {
         mClimbeStopSolenoid = new Solenoid(Setup.kClimberSolenoidId);
 
         mClimberBottomPhotoEye = new DigitalInput(Setup.kClimberPhotoEyeBottom);
-        mClimberTopPhotoEye = new DigitalInput(Setup.kClimberPhotoEyeTop);
+        //mClimberTopPhotoEye = new DigitalInput(Setup.kClimberPhotoEyeTop);
 
         mClimberMove = new VictorSPX(Setup.kClimberMoveMotor);
 
@@ -53,9 +53,11 @@ public class Climber extends Subsystem {
 
     private boolean mClimberSolenoid;
 
-    private double mClimberMotorSpeed;
-    private double mClimberMoveSpeed;
+    private double ClimberMotorSpeed;
+    private double ClimberMoveSpeed;
     
+    private boolean ClimberLocked = true;
+
     public enum ClimberState {
     	Climbing, Falling, Hanging, Locked
     }
@@ -65,9 +67,9 @@ public class Climber extends Subsystem {
      * (Climbing, Falling, Hanging, or Locked) 
      * @return mClimberState
      */
-    public ClimberState getClimberStates(){
-    	return mClimberState;
-    }
+    // public ClimberState getClimberStates(){
+    // 	return mClimberState;
+    // }
 
     /**
      * This Method Sets mClimberState = ClimberState.Hanging
@@ -75,9 +77,9 @@ public class Climber extends Subsystem {
      */
     public void StopClimb()
     {
-        mClimberState = ClimberState.Hanging;
+       // mClimberState = ClimberState.Hanging;
 
-        mClimberMotorSpeed = 0;
+        ClimberMotorSpeed = 0;
 
     }
     /**
@@ -86,9 +88,16 @@ public class Climber extends Subsystem {
      */
     public void Climb(){
 
-        mClimberState = ClimberState.Climbing;
+        //mClimberState = ClimberState.Climbing;
+        if(!ClimberLocked)
+        {
+            ClimberMotorSpeed = .25;
+        }
+        else
+        {
+            ClimberMotorSpeed = 0;
+        }
         
-        mClimberMotorSpeed = 1;
 
     }
     /**
@@ -97,16 +106,16 @@ public class Climber extends Subsystem {
      */
     public void Fall(){
         
-        mClimberState = ClimberState.Falling;
+        //mClimberState = ClimberState.Falling;
         
-        if(mClimberBottomPhotoEye.get() == true)
+        if((mClimberBottomPhotoEye.get() == true) && !ClimberLocked)
         {
-            mClimberMotorSpeed = 0;
+            ClimberMotorSpeed = 0;
             
         }
         else
         {
-            mClimberMotorSpeed = -1;
+            ClimberMotorSpeed = -.25;
         }
      
     }
@@ -117,8 +126,9 @@ public class Climber extends Subsystem {
      */
     public void locked(){
 
-        mClimberState = ClimberState.Locked;
-        mClimberSolenoid = true;
+        //mClimberState = ClimberState.Locked;
+        ClimberLocked = true;
+        mClimberSolenoid = false;
     }
 
     /**
@@ -126,8 +136,14 @@ public class Climber extends Subsystem {
      */
     public void unlocked(){
 
-        mClimberSolenoid = false;
+        ClimberLocked = false;
+        mClimberSolenoid = true;
 
+    }
+
+    public void stopClimbing()
+    {
+        ClimberMotorSpeed = 0;
     }
 
     /**
@@ -135,7 +151,7 @@ public class Climber extends Subsystem {
      */
     public void MoveLeft()
     {
-        mClimberMoveSpeed = -1;
+        ClimberMoveSpeed = -.25;
 
     }
 
@@ -144,7 +160,7 @@ public class Climber extends Subsystem {
      */
     public void MoveRight()
     {
-        mClimberMoveSpeed = 1;
+        ClimberMoveSpeed = .25;
         
     }
 
@@ -153,7 +169,7 @@ public class Climber extends Subsystem {
      */
     public void DontMove()
     {
-        mClimberMoveSpeed = 0;
+        ClimberMoveSpeed = 0;
 
     }
 
@@ -164,8 +180,8 @@ public class Climber extends Subsystem {
     @Override
     public void stop(){
 
-        // mClimberMotorSpeed = 0;
-        // mClimberSolenoid = true;
+        mClimber1.set(ControlMode.PercentOutput,0);
+        mClimber2.set(ControlMode.PercentOutput,0);
         
     }
    
@@ -175,11 +191,11 @@ public class Climber extends Subsystem {
 	@Override
 	public void updateSubsystem() {
         
-        mClimber1.set(ControlMode.PercentOutput,mClimberMotorSpeed);
-        mClimber2.set(ControlMode.PercentOutput,mClimberMotorSpeed);
+        mClimber1.set(ControlMode.PercentOutput,ClimberMotorSpeed);
+        mClimber2.set(ControlMode.PercentOutput,ClimberMotorSpeed);
         mClimbeStopSolenoid.set(mClimberSolenoid);
 
-        mClimberMove.set(ControlMode.PercentOutput, mClimberMoveSpeed);
+        mClimberMove.set(ControlMode.PercentOutput, ClimberMoveSpeed);
 		outputToSmartDashboard();
 		
 	}
@@ -188,7 +204,8 @@ public class Climber extends Subsystem {
      */
 	@Override
 	public void outputToSmartDashboard() {
-        SmartDashboard.putString("Climber State", mClimberState.toString());
+        //SmartDashboard.putString("Climber State", mClimberState.toString());
+        SmartDashboard.putBoolean("Climber Locked?", ClimberLocked);
 	}
 
 

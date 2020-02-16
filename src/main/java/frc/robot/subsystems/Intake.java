@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -8,7 +9,7 @@ import frc.robot.Setup;
 
 public class Intake extends Subsystem
 {
-    private VictorSPX mIntake;
+    private TalonSRX mIntake;
 	private Solenoid mIntakeArmLeftSolenoid;
     private Solenoid mIntakeArmRightSolenoid;
 
@@ -20,7 +21,7 @@ public class Intake extends Subsystem
 
  public Intake() 
  {
-    mIntake = new VictorSPX(Setup.kIntakeId);
+    mIntake = new TalonSRX(Setup.kIntakeId);
 	mIntake.setInverted(false);
 
    	mIntakeArmLeftSolenoid = new Solenoid(Setup.kIntakeLeftSolenoidId);
@@ -37,24 +38,28 @@ public class Intake extends Subsystem
     
     public void IntakeArmUp()
     {
-        IntakeArmSolenoid = true;
+        IntakeArmSolenoid = false;
     }
 
      public void IntakeArmDown()
     {
-        IntakeArmSolenoid = false;
+        IntakeArmSolenoid = true;
 
     }
 
     public void IntakePowercell()
     {
-        mIntakeMotorSpeed = .25;
+        mIntakeMotorSpeed = 1;
 
     }
 
      public void OuttakePowercell()
     {
-        mIntakeMotorSpeed = -.25;
+        mIntakeMotorSpeed = -1;
+    }
+    public void StopIntaking()
+    {
+        mIntakeMotorSpeed = 0;
     }
 
     /**This Method Updates the Intakes Percent output, and Motor Speed.

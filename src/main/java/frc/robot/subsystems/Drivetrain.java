@@ -74,7 +74,7 @@ public class Drivetrain extends Subsystem {
 		mLeftEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
 		mLeftEncoder.setReverseDirection(false);
 
-		mRightEncoder = new Encoder(7, 6);
+		mRightEncoder = new Encoder(7, 10);
 		mRightEncoder.setDistancePerPulse(calculated);
 		mRightEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
 		mRightEncoder.setReverseDirection(true);

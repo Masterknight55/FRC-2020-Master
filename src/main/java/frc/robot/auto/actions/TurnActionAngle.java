@@ -31,7 +31,7 @@ public class TurnActionAngle implements Action {
 		mAngleSetpoint = mGyro.getYaw() + angle; //NavX
         mRotationalDeadzone = rotationalDeadzone;
     }
-    
+     
     public TurnActionAngle(double angle, int requiredErrorCounts) {
 		//mAngleSetpoint = mGyro.getAngle() + angle; //FRC gyroscope
 		mAngleSetpoint = mGyro.getYaw() + angle; //NavX

@@ -80,7 +80,7 @@ this.ControlBoard();
     public boolean getDriverLtBoolean()
     {
       //return mDriverStick.getRawButton(5);
-       if(mDriverStick.getRawAxis(2) < 0)
+       if(mDriverStick.getRawAxis(2) > 0.5)
        {
          return true;
        }
@@ -92,7 +92,7 @@ this.ControlBoard();
 
     public boolean getDriverRtBoolean()
     {
-      if(mDriverStick.getRawAxis(2) > 0)
+      if(mDriverStick.getRawAxis(3) > 0.5)
       {
         return true;
       }
@@ -354,7 +354,7 @@ public static int kConveyorPhotoEye2 = 1;
 public static int kConveyorPhotoEye3 = 2;
 public static int kConveyorPhotoEye4 = 3;
 
-public static int kClimberPhotoEyeBottom = 4;
+public static int kClimberPhotoEyeBottom = 6;
 public static int kClimberPhotoEyeTop = 5;
 
 public static int kLEDPower = 9;

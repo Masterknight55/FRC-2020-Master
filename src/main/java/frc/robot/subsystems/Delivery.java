@@ -177,8 +177,13 @@ public Delivery() {
 
     public void Deliver()
     {
-        mConveyor.set(ControlMode.PercentOutput, SPEED);
-        //SetConveryorSpeed(.5);
+        //mConveyor.set(ControlMode.PercentOutput, SPEED);
+        SetConveryorSpeed(SPEED);
+    }
+
+    public void StopDelivering()
+    {
+        SetConveryorSpeed(0);
     }
 
     public void Swallow()

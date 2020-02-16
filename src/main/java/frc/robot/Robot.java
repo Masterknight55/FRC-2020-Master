@@ -75,7 +75,7 @@ public class Robot extends TimedRobot  {
   Delivery mDelivery;
   ControlPanel mControlPanel;
   Intake mIntake;
-  //Climber mClimber;
+  Climber mClimber;
   SmartDashboardInteractions mSmartDashboardInteractions;
   PixyCam mPixycam = new PixyCam(0);
 
@@ -86,7 +86,7 @@ public class Robot extends TimedRobot  {
     mDrivetrain.updateSubsystem();
     mControlPanel.updateSubsystem();
     mIntake.updateSubsystem();
-    //mClimber.updateSubsystem();
+    mClimber.updateSubsystem();
     //mLED.updateSubsystem();
     mDelivery.updateSubsystem();
     
@@ -97,7 +97,7 @@ public class Robot extends TimedRobot  {
 		mDrivetrain.stop();
     mDrivetrain.lowGear();
     mControlPanel.stop();
-    //mClimber.stop();
+    mClimber.stop();
     mIntake.stop();
     //mLED.stop();
     mDelivery.stop();
@@ -149,13 +149,13 @@ public void manual()
     //D Pad Right
     else if(mSetup.getDriverPov() == 90 || mSetup.getDriverPov() == 45 || mSetup.getDriverPov() == 135)
     {
-      //mClimber.MoveRight();
+      mClimber.MoveRight();
     }
 
     //D Pad Left
     else if(mSetup.getDriverPov() == 270 || mSetup.getDriverPov() == 225 || mSetup.getDriverPov() == 315)
     {
-      //mClimber.MoveLeft();
+      mClimber.MoveLeft();
     }
 
     
@@ -190,15 +190,15 @@ public void manual()
     if(mSetup.getDriverLtBoolean())
     {
       mIntake.IntakePowercell();
-      mDelivery.pushBallUpOne();
+      //mDelivery.pushBallUpOne();
     }
     else if(mSetup.getDriverBbutton())
     {
       mIntake.OuttakePowercell();
     }
-    else if(!mSetup.getDriverRtBoolean())
+    else
     {
-      mIntake.stop();
+      mIntake.StopIntaking();
       //mDelivery.stop();
     }
 
@@ -215,11 +215,11 @@ public void manual()
     }
      else if(mSetup.getDriverYbutton())
      {
-       //mDelivery.Swallow();
+       mDelivery.Swallow();
      }
-    else if (!mSetup.getDriverLtBoolean())
+    else
     {
-      //mDelivery.stop();
+      mDelivery.StopDelivering();
     }
 
 
@@ -231,21 +231,35 @@ public void manual()
     //--------------------------------------------------
     /**
    *   
-   */  
+   */
+  
+  
+
     if(mSetup.getSecondaryDriverRbButton())
     {
-      //mClimber.Climb();
+      mClimber.Climb();
     }
 
-    if(mSetup.getSecondaryDriverLbButton())
+    else if(mSetup.getSecondaryDriverLbButton())
     {
-      //mClimber.Fall();
+      mClimber.Fall();
+    }
+    else 
+    {
+      mClimber.stopClimbing();
     }
 
-    // if(mSetup.getSecondaryDriverXButton())
-    // {
-    //   mClimber.locked();
-    // }
+     if(mSetup.getSecondaryDriverXButton())
+     {
+       mClimber.locked();
+       
+     }
+
+     else if(mSetup.getSecondaryDriverAButton())
+     {
+       mClimber.unlocked();
+       
+     }
 
 
     //Test Code
@@ -333,6 +347,7 @@ public void GetFMSData() {
     mIntake = Intake.getInstance();
     mSmartDashboardInteractions = new SmartDashboardInteractions();
     mSmartDashboardInteractions.initWithDefaults();
+    mClimber = Climber.getInstance();
 
     stopAllSubsystems();
 
