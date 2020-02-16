@@ -113,9 +113,13 @@ public class Climber extends Subsystem {
             ClimberMotorSpeed = 0;
             
         }
-        else
+        else if(!ClimberLocked)
         {
             ClimberMotorSpeed = -.25;
+        }
+        else
+        {
+            ClimberMotorSpeed = 0;
         }
      
     }
