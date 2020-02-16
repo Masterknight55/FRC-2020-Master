@@ -149,13 +149,15 @@ public void manual()
     //D Pad Right
     else if(mSetup.getDriverPov() == 90 || mSetup.getDriverPov() == 45 || mSetup.getDriverPov() == 135)
     {
-      mClimber.MoveRight();
+      mDelivery.BrechPremitier();
+      //mClimber.MoveRight();
     }
 
     //D Pad Left
     else if(mSetup.getDriverPov() == 270 || mSetup.getDriverPov() == 225 || mSetup.getDriverPov() == 315)
     {
-      mClimber.MoveLeft();
+      mDelivery.AssumeThePostition();
+      //mClimber.MoveLeft();
     }
 
     

@@ -6,6 +6,7 @@ import java.util.Set;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -25,6 +26,9 @@ public class Delivery extends Subsystem
     DigitalInput mConveyorPhotoEye3;
     DigitalInput mConveyorPhotoEye4;
 
+    Solenoid mDeliveryArm;
+
+
     public double SPEED = 1;
 
 
@@ -40,6 +44,9 @@ public Delivery() {
     mConveyorPhotoEye2 = new DigitalInput(Setup.kConveyorPhotoEye2);
     mConveyorPhotoEye3 = new DigitalInput(Setup.kConveyorPhotoEye3);
     mConveyorPhotoEye4 = new DigitalInput(Setup.kConveyorPhotoEye4);
+
+    mDeliveryArm = new Solenoid(Setup.kConveyorLift);
+
     //System.out.println("Intake Done Initializing.");
 }
     
@@ -52,6 +59,16 @@ public Delivery() {
     public void SetConveryorSpeed(double speed)
     {
         ConveryorSpeed = speed; 
+    }
+
+    public void AssumeThePostition()
+    {
+        mDeliveryArm.set(true);
+    }
+
+    public void BrechPremitier()
+    {
+        mDeliveryArm.set(false);
     }
 
     public int moveto = 0;
