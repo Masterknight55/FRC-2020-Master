@@ -57,12 +57,14 @@ import java.util.Scanner;
 import edu.wpi.cscore.CameraServerJNI;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import edu.wpi.first.wpilibj.shuffleboard.*;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.subsystems.LED;
 import frc.robot.subsystems.PixyCam;
+import frc.robot.subsystems.Drivetrain.DriveGear;
 import frc.robot.auto.AutoExecuter;
 
 
@@ -89,6 +91,7 @@ public class Robot extends TimedRobot  {
     mClimber.updateSubsystem();
     //mLED.updateSubsystem();
     mDelivery.updateSubsystem();
+    mPixycam.updateSubsystem();
     
   }
   
@@ -112,6 +115,7 @@ public class Robot extends TimedRobot  {
    * The Controls are being called from the mSetup file. This has bothh of the controllers and the switch pad. 
    * Each control needs a comment about what it needs to accomplish. 
    */  
+
 public void manual()
 {
     
@@ -174,8 +178,17 @@ public void manual()
        mDrivetrain.chaseBall(mPixycam, 1);
      }
      else
-     {
-      mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
+     {  
+       if(mDrivetrain.getDriveGear() == DriveGear.LOW )
+       {
+        mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), .80);
+       }
+       else
+       {
+        mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
+       }
+       
+      
      }
 
     
@@ -192,7 +205,7 @@ public void manual()
     if(mSetup.getDriverLtBoolean())
     {
       mIntake.IntakePowercell();
-      //mDelivery.pushBallUpOne();
+     
     }
     else if(mSetup.getDriverBbutton())
     {
@@ -201,7 +214,7 @@ public void manual()
     else
     {
       mIntake.StopIntaking();
-      //mDelivery.stop();
+      
     }
 
     
@@ -213,17 +226,23 @@ public void manual()
    */  
     if(mSetup.getDriverRtBoolean())
     {
+      mSetup.mDriverStick.setRumble(RumbleType.kLeftRumble, 1);
+      mSetup.mDriverStick.setRumble(RumbleType.kRightRumble, 1);
       mDelivery.Deliver();
     }
      else if(mSetup.getDriverYbutton())
      {
+      mSetup.mDriverStick.setRumble(RumbleType.kLeftRumble, 1);
+      mSetup.mDriverStick.setRumble(RumbleType.kRightRumble, 1);
        mDelivery.Swallow();
      }
-    else
-    {
-      mDelivery.StopDelivering();
-    }
-
+     else 
+     {
+      mSetup.mDriverStick.setRumble(RumbleType.kLeftRumble, 0);
+      mSetup.mDriverStick.setRumble(RumbleType.kRightRumble, 0);
+       mDelivery.AutoMove();
+     }
+    
 
     //Secondary Driver
     //--------------------------------------------------
@@ -264,20 +283,6 @@ public void manual()
      }
 
 
-    //Test Code
-    if(mSetup.getSecondaryDriverAButton())
-    {
-      mDelivery.SetMoveTo();
-    }
-
-    if(mSetup.getSecondaryDriverBButton())
-    {
-      mDelivery.NewMove();
-    }
-    else if(!mSetup.getSecondaryDriverBButton())
-    {
-      mDelivery.stop();
-    }
 
      //Control Panel Controller 
     //--------------------------------------------------
@@ -313,22 +318,22 @@ public void GetFMSData() {
           switch(colorData.charAt(0)){
               case 'R':
               mControlPanel.SetFMSColor("Red");
-              SmartDashboard.putString("color", "R");
+              SmartDashboard.putString("color", "Red");
               break;
 
               case 'G':
               mControlPanel.SetFMSColor("Green");
-              SmartDashboard.putString("color", "G");
+              SmartDashboard.putString("color", "Green");
               break;
 
               case 'B':
               mControlPanel.SetFMSColor("Blue");
-              SmartDashboard.putString("color", "B");
+              SmartDashboard.putString("color", "Blue");
               break;
 
               case 'Y':
               mControlPanel.SetFMSColor("Yellow");
-              SmartDashboard.putString("color", "Y");
+              SmartDashboard.putString("color", "Yellow");
               break;
           }
       }

@@ -80,14 +80,14 @@ this.ControlBoard();
     public boolean getDriverLtBoolean()
     {
       //return mDriverStick.getRawButton(5);
-       if(mDriverStick.getRawAxis(2) > 0.5)
-       {
-         return true;
+        if(mDriverStick.getRawAxis(2) > 0.5)
+        {
+          return true;
        }
-       else
-       {
-         return false;
-       }
+        else
+        {
+          return false;
+        }
     }
 
     public boolean getDriverRtBoolean()
@@ -301,6 +301,7 @@ void HardwareMap() {
 }
 //-----------------------------------------------------------------------------------Not a Constant----------------------------------------------------------------------------------//
 public boolean AutoRunning = false;
+public static boolean IntakeAutoMode = false;
 //-----------------------------------------------------------------------------------Constants----------------------------------------------------------------------------------//
 
 //-static port assignments-//
@@ -349,10 +350,10 @@ public static int kConveyorLift = 5;
 
 
 //DIO
-public static int kConveyorPhotoEye1 = 0;
-public static int kConveyorPhotoEye2 = 1;
-public static int kConveyorPhotoEye3 = 2;
-public static int kConveyorPhotoEye4 = 3;
+public static int kConveyorPhotoEye1 = 1;
+public static int kConveyorPhotoEye2 = 2;
+public static int kConveyorPhotoEye3 = 3;
+public static int kConveyorPhotoEye4 = 4;
 
 public static int kClimberPhotoEyeBottom = 6;
 public static int kClimberPhotoEyeTop = 5;

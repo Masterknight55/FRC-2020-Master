@@ -91,7 +91,7 @@ public class Climber extends Subsystem {
         //mClimberState = ClimberState.Climbing;
         if(!ClimberLocked)
         {
-            ClimberMotorSpeed = .25;
+            ClimberMotorSpeed = 1;
         }
         else
         {
@@ -115,7 +115,7 @@ public class Climber extends Subsystem {
         }
         else if(!ClimberLocked)
         {
-            ClimberMotorSpeed = -.25;
+            ClimberMotorSpeed = -1;
         }
         else
         {

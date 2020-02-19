@@ -52,6 +52,7 @@ public Delivery() {
     
 
     public double ConveryorSpeed = 0.0;
+    boolean DeliveryArm; 
 
     /**
      * @param speed This is the speed of the conveyor
@@ -63,45 +64,20 @@ public Delivery() {
 
     public void AssumeThePostition()
     {
-        mDeliveryArm.set(true);
+        DeliveryArm = true;
     }
 
     public void BrechPremitier()
     {
-        mDeliveryArm.set(false);
+        DeliveryArm = false;
     }
 
-    public int moveto = 0;
-
-    public void SetMoveTo()
-    {
-        moveto = getPhotoeyeNumber() + 1;
-    }
-
-    public void NewMove()
-    {
-
-        if(!getPhotoeyeBasedOffNumber(moveto))
-        {
-            ConveryorSpeed = .25;
-        }
-        else
-        {
-            ConveryorSpeed = 0;
-        }
-
-
-
-
-    }
-
-    
     /**
      * This method returns the highest photoeye sensor to sense a ball.
      * This method is used by the PushBall method to make sure the conveyor
      * doesn't overflow
      */
-    public int getPhotoeyeNumber(){
+    public int getMaxPhotoeyeNumber(){
         int num;
 
         if(mConveyorPhotoEye4.get()){
@@ -146,51 +122,29 @@ public Delivery() {
         }
     }
 
-    public void pushBallUpOne()
+    public void AutoMove()
     {
-        int moveto = getPhotoeyeNumber() + 1;
 
-        if(!mConveyorPhotoEye4.get())
+        if (!mConveyorPhotoEye4.get())
         {
-            if(!getPhotoeyeBasedOffNumber(moveto))
+            if(mConveyorPhotoEye1.get())
             {
-                SetConveryorSpeed(1);
+                SetConveryorSpeed(.5);
             }
             else
             {
                 SetConveryorSpeed(0);
             }
-
         }
-
-
-
-
-
+        else
+        {
+            SetConveryorSpeed(0);
+        }
+        
+       
     }
 
-    /**
-     * The PushBall method is used to make room for the next
-     * incoming ball until the last photosensor is activated
-     */
-    // public void PushBall()
-    // {
-    //     if(mConveyorPhotoEye4.get())
-    //     {
-    //         SetConveryorSpeed(0);
-    //     }
-    //     else
-    //     { 
-    //         if(getPhotoeyeNumber())
-    //         {
-    //             SetConveryorSpeed(0);
-    //         }
-    //         else
-    //         {
-    //             SetConveryorSpeed(SPEED);
-    //         }
-    //     }
-    // }
+
 
     public void Deliver()
     {
@@ -215,8 +169,10 @@ public Delivery() {
 	@Override
 	public void updateSubsystem()
 	{
+        mDeliveryArm.set(DeliveryArm);
         mConveyor.set(ControlMode.PercentOutput, ConveryorSpeed);
-		outputToSmartDashboard();
+        outputToSmartDashboard();
+        
 	}
 
 
@@ -224,6 +180,11 @@ public Delivery() {
 	public void outputToSmartDashboard() {
         //SmartDashboard.putNumber("Convenyor SPEED", mConveyor.getMotorOutputPercent());
         SmartDashboard.putNumber("Delivery Conveyor Speed", ConveryorSpeed);
+        SmartDashboard.putBoolean("Delivery Photo Eye 1", mConveyorPhotoEye1.get());
+        SmartDashboard.putBoolean("Delivery Photo Eye 2", mConveyorPhotoEye2.get());
+        SmartDashboard.putBoolean("Delivery Photo Eye 3", mConveyorPhotoEye3.get());
+        SmartDashboard.putBoolean("Delivery Photo Eye 4", mConveyorPhotoEye4.get());
+
 	}
 
 	@Override

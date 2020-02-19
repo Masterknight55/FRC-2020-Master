@@ -109,6 +109,12 @@ public class Drivetrain extends Subsystem {
 		mRightSpeed = -BasicCosineMotionProfile(right, scale);
 		
 	}
+	public void setTankDriveSpeed(double left, double right){
+    	
+		mLeftSpeed = left;
+		mRightSpeed = -right;
+		
+	}
 
 
 	/**
@@ -145,8 +151,8 @@ public class Drivetrain extends Subsystem {
 		}
 		else
 		{
-			mLeftSpeed += .1;
-			mRightSpeed += -.1;
+			mLeftSpeed += 0;
+			mRightSpeed += -0;
 		}
 	}
 
@@ -247,8 +253,8 @@ public class Drivetrain extends Subsystem {
 	@Override
 	public void outputToSmartDashboard() {
 
-		SmartDashboard.putNumber("DriveTrain_LeftMotorSpeeds", mLeftSpeed);
-		SmartDashboard.putNumber("DriveTrain_RightMotorSpeeds", mRightSpeed);
+		SmartDashboard.putNumber("DriveTrain_LeftMotorSpeeds", mLeftSpeed * 100);
+		SmartDashboard.putNumber("DriveTrain_RightMotorSpeeds", mRightSpeed * 100);
 		SmartDashboard.putNumber("DriveTrain_MoveValue", mMoveSpeed);
 		SmartDashboard.putNumber("DriveTrain_RotateValue", mRotateSpeed);
 

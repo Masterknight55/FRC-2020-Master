@@ -98,6 +98,8 @@ public class PixyCam extends Subsystem{
         {
             age = 0;
         }
+
+        outputToSmartDashboard();
     }
     //Puts a value between -1 and 1 on smart dashboard
     @Override
