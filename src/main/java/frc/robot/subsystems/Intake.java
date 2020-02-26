@@ -74,15 +74,6 @@ public class Intake extends Subsystem
         mIntakeArmLeftSolenoid.set(IntakeArmSolenoid);
         mIntakeArmRightSolenoid.set(IntakeArmSolenoid);
 
-        if(mIntakeMotorSpeed > 0)
-        {
-            Setup.IntakeAutoMode = true;
-        }
-        else
-        {
-            Setup.IntakeAutoMode = false;
-        }
-    
         outputToSmartDashboard();
     }
 
