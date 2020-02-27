@@ -316,6 +316,7 @@ public static int kRightRearMotorId = 4;
 
 //Intake
 public static int kIntakeId = 5;
+public static int kIntake2Id = 11;
 
 //Control Panel
 public static int kControlPanelWheelId = 6;
