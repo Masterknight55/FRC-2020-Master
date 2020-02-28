@@ -1,9 +1,9 @@
 package frc.robot.auto.actions;
 
-import frc.robot.Setup;
-import frc.robot.subsystems.Drivetrain;
 //import edu.wpi.first.wpilibj.ADXRS450_Gyro; //FRC gyroscope library
 import com.kauailabs.navx.frc.AHRS;//NavX Library
+
+import frc.robot.subsystems.Drivetrain;
 
 public class TurnActionAngle implements Action {
 
