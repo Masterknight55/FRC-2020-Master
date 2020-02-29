@@ -210,6 +210,7 @@ public class Climber extends Subsystem {
 	public void outputToSmartDashboard() {
         //SmartDashboard.putString("Climber State", mClimberState.toString());
         SmartDashboard.putBoolean("Climber Locked?", ClimberLocked);
+    
 	}
 
 
