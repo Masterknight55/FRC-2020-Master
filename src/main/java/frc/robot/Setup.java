@@ -79,7 +79,7 @@ this.ControlBoard();
 
     public boolean getDriverLtBoolean()
     {
-      //return mDriverStick.getRawButton(5);
+      
         if(mDriverStick.getRawAxis(2) > 0.5)
         {
           return true;
@@ -175,6 +175,15 @@ this.ControlBoard();
       return mSecondaryDriverStick.getRawButton(6);
     }
 
+    public boolean getSecondaryDriverLtButton()
+    {
+      return mSecondaryDriverStick.getRawButton(2);
+    }
+
+    public boolean getSecondaryDriverRtButton()
+    {
+      return mSecondaryDriverStick.getRawButton(3);
+    }
     
 
     
@@ -201,12 +210,12 @@ this.ControlBoard();
     }
 
     
-    public double getSecondaryLt()
+    public double getSecondaryDriverLt()
     {
       return mSecondaryDriverStick.getRawAxis(2);
     }
 
-    public double getSecondaryRt()
+    public double getSecondaryDriverRt()
     {
       return mSecondaryDriverStick.getRawAxis(3);
     }
@@ -316,7 +325,6 @@ public static int kRightRearMotorId = 4;
 
 //Intake
 public static int kIntakeId = 5;
-public static int kIntake2Id = 11;
 
 //Control Panel
 public static int kControlPanelWheelId = 6;

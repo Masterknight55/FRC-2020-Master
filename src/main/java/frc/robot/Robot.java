@@ -282,6 +282,16 @@ public void manual()
        
      }
 
+     if(mSetup.getSecondaryDriverRtButton())
+     {
+       mClimber.MoveRight();
+     }
+
+     if(mSetup.getSecondaryDriverLtButton())
+     {
+       mClimber.MoveLeft();
+     }
+
 
 
      //Control Panel Controller 
