@@ -2,9 +2,12 @@
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANEncoder;
 import java.lang.Math;
+
+import edu.wpi.first.wpilibj.CAN;
 import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.Encoder;
+//import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.Joystick;
@@ -36,8 +39,12 @@ public class Drivetrain extends Subsystem {
 	MotionProfile mDriveTrainMotionProfile;
 
 	//Encoders
-	public Encoder mLeftEncoder;
-	public Encoder mRightEncoder; 
+	public CANEncoder mLeftEncoder;//This encoder is connected to the port of the motor controller of the front Left motor.
+	public CANEncoder mRightEncoder;//This encoder is connected to the port of the motor controller of the front Right motor.
+
+	//Encoder Variables
+	final double radius = 3;//Wheel Radius (I don't know what unit they are in, but I don't think it matters. If I had to guess I think it's probabaly inches.)
+	double LeftEncoderSubtract = 0, RightEncoderSubtract = 0;//These are the numbers to subtract from the encoders when they are reset.
 
     public Drivetrain(){
 	
@@ -64,21 +71,9 @@ public class Drivetrain extends Subsystem {
 		//mRightRearDrive.setRampRate(.2);
 
 		//Encoders
-		final double ticksPerRev = 1024;
-		final double pi = 3.14;
-		final double radius = 3;
-		final double calculated = (2*pi)/ticksPerRev*radius;
+		mLeftEncoder = new CANEncoder(mLeftFrontDrive);//Left Encoder
+		mRightEncoder = new CANEncoder(mRightFrontDrive);//Right Encoder
 
-		mLeftEncoder = new Encoder(8, 9);
-		mLeftEncoder.setDistancePerPulse(calculated);
-		mLeftEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
-		mLeftEncoder.setReverseDirection(false);
-
-		mRightEncoder = new Encoder(7, 10);
-		mRightEncoder.setDistancePerPulse(calculated);
-		mRightEncoder.setPIDSourceType(PIDSourceType.kDisplacement);
-		mRightEncoder.setReverseDirection(true);
-    
 		}
     
     private DriveGear mDriveGear;
@@ -180,17 +175,15 @@ public class Drivetrain extends Subsystem {
 			}
      
 	}
-	
-	public void resetEncoders(){
-    	mLeftEncoder.reset();
-    	mRightEncoder.reset();
-	}
-	
-	public double getDistance(){
-    	return (mLeftEncoder.getDistance() + mRightEncoder.getDistance()) / 2.0;
-    }
 
-    
+	public void resetEncoders(){
+		LeftEncoderSubtract = mLeftEncoder.getPosition();
+		RightEncoderSubtract = mRightEncoder.getPosition();
+	}
+
+	public double getDistance(){
+    	return (((mLeftEncoder.getPosition()-LeftEncoderSubtract)*(radius*2))+((mRightEncoder.getPosition()-RightEncoderSubtract)*(radius*2)))/2;
+	}
 
     //Stop
     @Override
