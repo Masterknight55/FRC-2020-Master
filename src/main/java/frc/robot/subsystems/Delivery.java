@@ -14,7 +14,10 @@ public class Delivery extends Subsystem
 {
 
     static Delivery mInstance = new Delivery();
-
+    /**
+     * Gets an instance of the delivery for the auto action
+     * @return mInstance
+     */
     public static Delivery getInstance() {
     	return mInstance;
     }
@@ -144,6 +147,7 @@ public Delivery() {
        
     }
 
+    
 
 
     public void Deliver()
