@@ -338,7 +338,7 @@ public static int kClimber2Id = 9;
 public static int kClimberMoveMotor = 10;
 
 
-//SOLENOIDS (0-7)
+//SOLENOIDS (0-7) 
 
 
 //Shifters
