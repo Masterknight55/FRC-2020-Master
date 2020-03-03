@@ -1,12 +1,5 @@
 [
   {
-    "artifact": "frcJava (in project FRC 2020 Master)",
-    "target": "roborio",
-    "debugfile": "frcJava_roborio.debugconfig",
-    "project": "FRC 2020 Master",
-    "language": "java"
-  },
-  {
     "artifact": "frcJava (in project FRC-2019-master safe)",
     "target": "roborio",
     "debugfile": "frcJava_roborio.debugconfig",
@@ -18,6 +11,13 @@
     "target": "roborio",
     "debugfile": "frcJava_roborio.debugconfig",
     "project": "FRC-2019-master",
+    "language": "java"
+  },
+  {
+    "artifact": "frcJava (in project FRC-2020-Master)",
+    "target": "roborio",
+    "debugfile": "frcJava_roborio.debugconfig",
+    "project": "FRC-2020-Master",
     "language": "java"
   }
 ]
