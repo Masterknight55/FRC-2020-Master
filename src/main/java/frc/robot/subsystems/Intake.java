@@ -9,8 +9,8 @@ import frc.robot.Setup;
 
 public class Intake extends Subsystem
 {
-    private TalonSRX mIntake;
-    private TalonSRX mIntake2;
+    private VictorSPX mIntake;
+    private VictorSPX mIntake2;
 	private Solenoid mIntakeArmLeftSolenoid;
     private Solenoid mIntakeArmRightSolenoid;
 
@@ -22,10 +22,10 @@ public class Intake extends Subsystem
 
  public Intake() 
  {
-    mIntake = new TalonSRX(Setup.kIntakeId);
+    mIntake = new VictorSPX(Setup.kIntakeId);
     mIntake.setInverted(false);
     
-    mIntake2 = new TalonSRX(Setup.kIntakeId);
+    mIntake2 = new VictorSPX(Setup.kIntakeId);
     mIntake.setInverted(false);
 
    	mIntakeArmLeftSolenoid = new Solenoid(Setup.kIntakeLeftSolenoidId);

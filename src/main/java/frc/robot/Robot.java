@@ -80,6 +80,7 @@ public class Robot extends TimedRobot  {
   Climber mClimber;
   SmartDashboardInteractions mSmartDashboardInteractions;
   PixyCam mPixycam = new PixyCam(0);
+  PixyCam mPixycam2 = new PixyCam(1);
 
   AutoExecuter mAutoExecuter = null;
   
@@ -172,11 +173,18 @@ public void manual()
        mDrivetrain.autoAlign(mPixycam, 1);
      }
 
-     else if(mSetup.getDriverXButton())
+     /*else if(mSetup.getDriverXButton())
      {
        mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
        mDrivetrain.chaseBall(mPixycam, 1);
+     }*/
+
+     else if(mSetup.getDriverXButton())
+     {
+      mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
+      mDrivetrain.chaseBall(mPixycam2, 1);
      }
+
      else
      {  
        if(mDrivetrain.getDriveGear() == DriveGear.LOW )
