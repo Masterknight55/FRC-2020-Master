@@ -12,7 +12,9 @@ public class StopIntakeAction implements Action
     
     @Override
     public void start() {
+
         mIntake.StopIntaking();
+        
     }
 
     @Override
