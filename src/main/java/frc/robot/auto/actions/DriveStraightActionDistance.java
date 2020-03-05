@@ -1,15 +1,16 @@
-/*
+
 package frc.robot.auto.actions;
 
 import frc.robot.Setup;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.Encoder;
+//import edu.wpi.first.wpilibj.Encoder;
+import com.revrobotics.CANEncoder;
 
 public class DriveStraightActionDistance implements Action {
 	
 	private Drivetrain mDrivetrain = Drivetrain.getInstance();
-	private Encoder mEncoder = Drivetrain.getInstance().mRightEncoder;
+	private CANEncoder mEncoder = Drivetrain.getInstance().mRightEncoder;
 	private ADXRS450_Gyro mGyro = Setup.getInstance().mGyro;
 	
 	private double mDistanceSetPoint;
@@ -81,7 +82,7 @@ public class DriveStraightActionDistance implements Action {
 	}
 	
 	private double calcEncoderError(){
-		return mDistanceSetPoint - mEncoder.getDistance();
+		return mDistanceSetPoint - mDrivetrain.getDistance();
 	}
 	
 	private void calcGyroSpeed() {
@@ -128,4 +129,3 @@ public class DriveStraightActionDistance implements Action {
 		}
 	}
 }
-*/
