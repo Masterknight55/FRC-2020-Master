@@ -4,8 +4,6 @@ import frc.robot.auto.AutoModeBase;
 import frc.robot.auto.AutoModeEndedException;
 import frc.robot.auto.actions.DriveStraightActionDistance;
 
-import frc.robot.auto.actions.WaitAction;
-
 
 public class BasicCross extends AutoModeBase {
 
