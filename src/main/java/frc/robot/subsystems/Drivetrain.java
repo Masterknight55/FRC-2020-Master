@@ -118,17 +118,18 @@ public class Drivetrain extends Subsystem {
 	 * @param pixy This pixy will be the pixy that you want to use to target the object
 	 * @param scale This it the Cosine Motion Profile Scale. It is multiplied by the input to make the graph steeper.
 	 */
-	public void autoAlign(PixyCam pixy, double scale)
+	public void 
+	autoAlign(PixyCam pixy, double scale)
 	{
 		if(pixy.blockDetected() && !pixy.inDeadzone())
 		{
-			mLeftSpeed += -BasicCosineMotionProfile(pixy.value(), scale);
-			mRightSpeed += BasicCosineMotionProfile(pixy.value(), scale);
+			mLeftSpeed = -BasicCosineMotionProfile(pixy.value(), scale);
+			mRightSpeed = BasicCosineMotionProfile(pixy.value(), scale);
 		}
 		else
 		{
-			mLeftSpeed += 0;
-			mRightSpeed += 0;
+			mLeftSpeed = 0;
+			mRightSpeed = 0;
 		}
 	}
 
