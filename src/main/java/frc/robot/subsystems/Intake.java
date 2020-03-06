@@ -26,7 +26,7 @@ public class Intake extends Subsystem
     mIntake.setInverted(false);
     
     mIntake2 = new VictorSPX(Setup.kIntakeId2);
-    mIntake.setInverted(false);
+    mIntake.setInverted(true);
 
    	mIntakeArmLeftSolenoid = new Solenoid(Setup.kIntakeLeftSolenoidId);
 	mIntakeArmRightSolenoid = new Solenoid(Setup.kIntakeRightSolenoidId);

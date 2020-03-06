@@ -403,7 +403,7 @@ public void GetFMSData() {
 		
 	@Override
 	public void autonomousPeriodic() {
-    manual();
+    
 		updateAllSubsystems();
 	}
 
