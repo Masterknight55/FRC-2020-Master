@@ -5,6 +5,7 @@ import frc.robot.auto.AutoModeEndedException;
 import frc.robot.auto.actions.DeliveryAction;
 import frc.robot.auto.actions.DriveStraightActionTime;
 import frc.robot.auto.actions.IntakeAction;
+import frc.robot.auto.actions.IntakeArmDownAction;
 import frc.robot.auto.actions.StopDeliveryAction;
 import frc.robot.auto.actions.StopIntakeAction;
 import frc.robot.auto.actions.WaitAction;
@@ -20,6 +21,8 @@ public class TestMode extends AutoModeBase {
 		runAction(new StopDeliveryAction());
 		//runAction(new IntakeAction());
 		runAction(new WaitAction(1));
+		runAction(new IntakeArmDownAction());
+		
 		//runAction(new StopIntakeAction());
 
 		/*
