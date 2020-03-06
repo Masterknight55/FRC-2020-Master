@@ -12,7 +12,7 @@ public class DeliveryAction implements Action
     
     @Override
     public void start() {
-        mDelivery.SetConveryorSpeed(1.0);
+        mDelivery.Deliver();;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class DeliveryAction implements Action
 
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 
     @Override
