@@ -101,7 +101,6 @@ this.ControlBoard();
         return false;
       }
     }
-
     public double getDriverRt()
     {
       return mDriverStick.getRawAxis(3);

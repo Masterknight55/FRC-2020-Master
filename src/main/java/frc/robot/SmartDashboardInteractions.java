@@ -2,6 +2,7 @@ package frc.robot;
 
 import frc.robot.auto.AutoModeBase;
 import frc.robot.auto.modes.BasicCross;
+import frc.robot.auto.modes.BasicDeliver;
 import frc.robot.auto.modes.StandStillMode;
 import frc.robot.auto.modes.TestMode;
 
@@ -52,14 +53,12 @@ public class SmartDashboardInteractions {
     
     //enum to hold all possible auto modes
    private enum AutonOption {
-        //MIDDLE_GEAR_STAY("middle gear stay", new MiddleGearStayMode()), //
-        //LEFT_GEAR_STAY("left gear stay", new LeftGearStayMode()), //
-        //RIGHT_GEAR_STAY("right gear stay", new RightGearStayMode()), //
-       // SHOOT("shoot", new ShootMode()), //
-        //BasicCross("Basic Cross") new BasicCrossMode();
+        
         BasicCross("Basic Cross", new BasicCross()),
         STAND_STILL("stand still", new StandStillMode()),//
-    	TEST("test (do not use at comp)", new TestMode()); //
+        TEST("test (do not use at comp)", new TestMode()),
+        BasicDeliver("Basic Deliver", new BasicDeliver()),; //
+    
         
         public final String name;
         public final AutoModeBase autoMode;
