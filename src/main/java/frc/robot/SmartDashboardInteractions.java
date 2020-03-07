@@ -5,6 +5,8 @@ import frc.robot.auto.modes.BasicCross;
 import frc.robot.auto.modes.BasicDeliver;
 import frc.robot.auto.modes.StandStillMode;
 import frc.robot.auto.modes.TestMode;
+import frc.robot.auto.modes.MiddleStartPickUpAndDeliver;
+import frc.robot.auto.modes.TrenchRunDeliver;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -32,6 +34,8 @@ public class SmartDashboardInteractions {
         mAutoChooser.addObject(AutonOption.STAND_STILL.name, AutonOption.STAND_STILL);
         mAutoChooser.addObject(AutonOption.TEST.name, AutonOption.TEST);
         mAutoChooser.addDefault("Stand_Still", AutonOption.STAND_STILL);
+        mAutoChooser.addObject(AutonOption.TrenchRunDeliver.name, AutonOption.TrenchRunDeliver);
+        
 
         
         
@@ -55,9 +59,10 @@ public class SmartDashboardInteractions {
    private enum AutonOption {
         
         BasicCross("Basic Cross", new BasicCross()),
-        STAND_STILL("stand still", new StandStillMode()),//
+        STAND_STILL("Stand Still", new StandStillMode()),//
         TEST("test (do not use at comp)", new TestMode()),
-        BasicDeliver("Basic Deliver", new BasicDeliver()),; //
+        BasicDeliver("Basic Deliver", new BasicDeliver()),
+        TrenchRunDeliver("Trench Run Deliver", new TrenchRunDeliver()); //
     
         
         public final String name;
