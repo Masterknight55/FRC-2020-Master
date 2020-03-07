@@ -2,6 +2,9 @@
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
+import org.w3c.dom.ls.LSException;
+
 import com.revrobotics.CANEncoder;
 import java.lang.Math;
 
@@ -118,14 +121,47 @@ public class Drivetrain extends Subsystem {
 	 * @param pixy This pixy will be the pixy that you want to use to target the object
 	 * @param scale This it the Cosine Motion Profile Scale. It is multiplied by the input to make the graph steeper.
 	 */
+
+	 private int pixyDelay = 0;
 	public void 
 	autoAlign(PixyCam pixy, double scale)
 	{
-		if(pixy.blockDetected() && !pixy.inDeadzone())
+		if(pixy.blockDetected() && !pixy.inDeadzone() && pixy.analogPortNumber() == 0)
 		{
-			mLeftSpeed = -BasicCosineMotionProfile(pixy.value(), scale);
-			mRightSpeed = BasicCosineMotionProfile(pixy.value(), scale);
+			mLeftSpeed = -pixy.value();
+			mRightSpeed = pixy.value();
 		}
+		else if(pixy.blockDetected() && !pixy.inDeadzone() && pixy.analogPortNumber() == 1 || pixyDelay > 0)
+		{
+			if(pixy.blockDetected())
+			{
+				pixyDelay = 20;
+			
+				mLeftSpeed = -pixy.value();
+				mRightSpeed = pixy.value();
+				if(pixy.inBigDeadzone())
+				{
+					mLeftSpeed = mLeftSpeed - 0.2;
+					mRightSpeed = -mRightSpeed - 0.2;
+				}
+			}
+			else if(pixyDelay > 0)
+			{
+				pixyDelay--;
+				mLeftSpeed = -0.2;
+				mRightSpeed = -0.2;
+			}
+			else
+			{
+				mLeftSpeed = 0;
+				mRightSpeed = 0;
+			}
+		}
+		/*else if(pixy.analogPortNumber() == 1)
+		{
+			mLeftSpeed = 0.5;
+			mRightSpeed = -0.5;
+		}*/
 		else
 		{
 			mLeftSpeed = 0;
@@ -253,6 +289,7 @@ public class Drivetrain extends Subsystem {
 		SmartDashboard.putNumber("DriveTrain_RotateValue", mRotateSpeed);
 
 		SmartDashboard.putString("Drive_Gear", mDriveGear.toString());
+		SmartDashboard.putNumber("PixyDelay", pixyDelay);
 	}
 
 

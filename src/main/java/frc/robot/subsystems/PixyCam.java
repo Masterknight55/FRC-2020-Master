@@ -23,7 +23,7 @@ public class PixyCam extends Subsystem{
 
     //The inner deadzone is when the target is close enough to the center of the camera.  The outer deadzone makes sure the robot does not read a false detection
     private static final double innerDeadzone = .10;
-    private static final double outerDeadzone = .7;
+    private static final double outerDeadzone = .75;
 
     //InstanceGetting
     
@@ -51,6 +51,11 @@ public class PixyCam extends Subsystem{
     public double value()
     {
         return (((double)(PixyInput.getValue()) - 1500.0) / 1500.0);
+    }
+
+    public int analogPortNumber()
+    {
+        return analogPort;
     }
 
     /**
@@ -107,6 +112,7 @@ public class PixyCam extends Subsystem{
     {
 
         SmartDashboard.putNumber("PixyCam" + analogPort, this.value());
+        SmartDashboard.putBoolean("PixyBlockDetected" + analogPort, this.blockDetected());
 
     }
 

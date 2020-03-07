@@ -182,8 +182,8 @@ public void manual()
 
      else if(mSetup.getDriverXButton())
      {
-      //mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
-      mDrivetrain.chaseBall(mPixycam2, 1);
+      mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
+      mDrivetrain.autoAlign(mPixycam2, 1);
      }
 
      else
