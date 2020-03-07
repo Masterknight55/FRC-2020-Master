@@ -132,7 +132,7 @@ public Delivery() {
         {
             if(mConveyorPhotoEye1.get())
             {
-                SetConveryorSpeed(.5);
+                SetConveryorSpeed(1);
             }
             else
             {

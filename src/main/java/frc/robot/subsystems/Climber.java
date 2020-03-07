@@ -155,7 +155,7 @@ public class Climber extends Subsystem {
      */
     public void MoveLeft()
     {
-        ClimberMoveSpeed = -.25;
+        ClimberMoveSpeed = -1;
 
     }
 
@@ -164,7 +164,7 @@ public class Climber extends Subsystem {
      */
     public void MoveRight()
     {
-        ClimberMoveSpeed = .25;
+        ClimberMoveSpeed = 1;
         
     }
 

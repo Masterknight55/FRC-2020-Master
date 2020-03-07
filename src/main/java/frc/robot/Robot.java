@@ -80,6 +80,7 @@ public class Robot extends TimedRobot  {
   Climber mClimber;
   SmartDashboardInteractions mSmartDashboardInteractions;
   PixyCam mPixycam = new PixyCam(0);
+  PixyCam mPixycam2 = new PixyCam(1);
 
   AutoExecuter mAutoExecuter = null;
   
@@ -92,6 +93,7 @@ public class Robot extends TimedRobot  {
     //mLED.updateSubsystem();
     mDelivery.updateSubsystem();
     mPixycam.updateSubsystem();
+    mPixycam2.updateSubsystem();
     
   }
   
@@ -168,15 +170,22 @@ public void manual()
     //PixyCam Controls
      if(mSetup.getDriverAButton())
      {
-       mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
+       //mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
        mDrivetrain.autoAlign(mPixycam, 1);
      }
 
-     else if(mSetup.getDriverXButton())
+     /*else if(mSetup.getDriverXButton())
      {
        mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
        mDrivetrain.chaseBall(mPixycam, 1);
+     }*/
+
+     else if(mSetup.getDriverXButton())
+     {
+      //mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
+      mDrivetrain.chaseBall(mPixycam2, 1);
      }
+
      else
      {  
        if(mDrivetrain.getDriveGear() == DriveGear.LOW )
@@ -282,14 +291,19 @@ public void manual()
        
      }
 
-     if(mSetup.getSecondaryDriverRtButton())
+
+     //Climber Movement Controls
+     if(mSetup.getSecondaryDriverRtBoolean())
      {
        mClimber.MoveRight();
      }
-
-     if(mSetup.getSecondaryDriverLtButton())
+     else if(mSetup.getSecondaryDriverLtBoolean())
      {
        mClimber.MoveLeft();
+     }
+     else
+     {
+       mClimber.DontMove();
      }
 
 
@@ -389,7 +403,7 @@ public void GetFMSData() {
 		
 	@Override
 	public void autonomousPeriodic() {
-    manual();
+    
 		updateAllSubsystems();
 	}
 
