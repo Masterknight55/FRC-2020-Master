@@ -170,6 +170,7 @@ public void manual()
     //PixyCam Controls
      if(mSetup.getDriverAButton())
      {
+       //This is the PixyCam on the intake, it aligns on balls
        //mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
        mDrivetrain.autoAlign(mPixycam, 1);
      }
@@ -182,13 +183,14 @@ public void manual()
 
      else if(mSetup.getDriverXButton())
      {
+       //This is the PixyCam on the Delivery, it aligns on the Goal
       mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
       mDrivetrain.autoAlign(mPixycam2, 1);
      }
 
      else
      {
-       mDrivetrain.pixyTime = 0;  
+       mDrivetrain.goalPixyDisable = false;  
        if(mDrivetrain.getDriveGear() == DriveGear.LOW )
        {
         mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), .80);

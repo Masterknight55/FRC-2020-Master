@@ -122,47 +122,25 @@ public class Drivetrain extends Subsystem {
 	 * @param scale This it the Cosine Motion Profile Scale. It is multiplied by the input to make the graph steeper.
 	 */
 
-	 private int pixyDelay = 0;
-	 public int pixyTime = 0;
-	 private boolean pixyDisable = false;
-	public void 
-	autoAlign(PixyCam pixy, double scale)
+	private int goalPixyDelay = 0;
+	public boolean goalPixyDisable = false;
+	public void autoAlign(PixyCam pixy, double scale)
 	{
-		if(pixyTime == 0)
-		{
-			pixyTime++;
-			pixyDisable = false;
-		}
 		if(pixy.blockDetected() && !pixy.inDeadzone() && pixy.analogPortNumber() == 0)
 		{
 			mLeftSpeed = -pixy.value();
 			mRightSpeed = pixy.value();
 		}
-		else if((pixy.blockDetected() && !pixy.inDeadzone() && pixy.analogPortNumber() == 1 || pixyDelay > 0))
+		else if((pixy.blockDetected() && !pixy.inDeadzone() && pixy.analogPortNumber() == 1 || goalPixyDelay > 0) && !goalPixyDisable)
 		{
-			if(pixy.blockDetected() && !pixyDisable)
+			goalPixyDelay = 60;
+
+			mLeftSpeed = -pixy.value();
+			mRightSpeed = pixy.value();
+			if(pixy.inDeadzone())
 			{
-				pixyDelay = 60;
-			
-				mLeftSpeed = -pixy.value();
-				mRightSpeed = pixy.value();
-				if(pixy.inDeadzone())
-				{
-					mLeftSpeed = mLeftSpeed * 0.5 - 0.4;
-					mRightSpeed = -mRightSpeed * 0.5 - 0.4;
-				}
-			}
-			else if(pixyDelay > 0)
-			{
-				pixyDisable = true;
-				pixyDelay--;
-				mLeftSpeed = -0.2;
-				mRightSpeed = -0.2;
-			}
-			else
-			{
-				mLeftSpeed = 0;
-				mRightSpeed = 0;
+				mLeftSpeed = mLeftSpeed * 0.5 - 0.4;
+				mRightSpeed = -mRightSpeed * 0.5 - 0.4;
 			}
 		}
 		/*else if(pixy.analogPortNumber() == 1)
@@ -170,6 +148,13 @@ public class Drivetrain extends Subsystem {
 			mLeftSpeed = 0.5;
 			mRightSpeed = -0.5;
 		}*/
+		else if(goalPixyDelay > 0)
+		{
+			goalPixyDisable = true;
+			goalPixyDelay--;
+			mLeftSpeed = -0.2;
+			mRightSpeed = -0.2;
+		}
 		else
 		{
 			mLeftSpeed = 0;
@@ -297,9 +282,8 @@ public class Drivetrain extends Subsystem {
 		SmartDashboard.putNumber("DriveTrain_RotateValue", mRotateSpeed);
 
 		SmartDashboard.putString("Drive_Gear", mDriveGear.toString());
-		SmartDashboard.putNumber("PixyDelay", pixyDelay);
-		SmartDashboard.putNumber("PixyTime", pixyTime);
-		SmartDashboard.putBoolean("PixyDisable", pixyDisable);
+		SmartDashboard.putNumber("GoalPixyDelay", goalPixyDelay);
+		SmartDashboard.putBoolean("GoalPixyDisable", goalPixyDisable);
 	}
 
 
