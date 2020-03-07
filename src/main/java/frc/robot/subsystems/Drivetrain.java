@@ -123,30 +123,38 @@ public class Drivetrain extends Subsystem {
 	 */
 
 	 private int pixyDelay = 0;
+	 public int pixyTime = 0;
+	 private boolean pixyDisable = false;
 	public void 
 	autoAlign(PixyCam pixy, double scale)
 	{
+		if(pixyTime == 0)
+		{
+			pixyTime++;
+			pixyDisable = false;
+		}
 		if(pixy.blockDetected() && !pixy.inDeadzone() && pixy.analogPortNumber() == 0)
 		{
 			mLeftSpeed = -pixy.value();
 			mRightSpeed = pixy.value();
 		}
-		else if(pixy.blockDetected() && !pixy.inDeadzone() && pixy.analogPortNumber() == 1 || pixyDelay > 0)
+		else if((pixy.blockDetected() && !pixy.inDeadzone() && pixy.analogPortNumber() == 1 || pixyDelay > 0))
 		{
-			if(pixy.blockDetected())
+			if(pixy.blockDetected() && !pixyDisable)
 			{
-				pixyDelay = 20;
+				pixyDelay = 60;
 			
 				mLeftSpeed = -pixy.value();
 				mRightSpeed = pixy.value();
-				if(pixy.inBigDeadzone())
+				if(pixy.inDeadzone())
 				{
-					mLeftSpeed = mLeftSpeed - 0.2;
-					mRightSpeed = -mRightSpeed - 0.2;
+					mLeftSpeed = mLeftSpeed * 0.5 - 0.4;
+					mRightSpeed = -mRightSpeed * 0.5 - 0.4;
 				}
 			}
 			else if(pixyDelay > 0)
 			{
+				pixyDisable = true;
 				pixyDelay--;
 				mLeftSpeed = -0.2;
 				mRightSpeed = -0.2;
@@ -290,6 +298,8 @@ public class Drivetrain extends Subsystem {
 
 		SmartDashboard.putString("Drive_Gear", mDriveGear.toString());
 		SmartDashboard.putNumber("PixyDelay", pixyDelay);
+		SmartDashboard.putNumber("PixyTime", pixyTime);
+		SmartDashboard.putBoolean("PixyDisable", pixyDisable);
 	}
 
 

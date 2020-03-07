@@ -187,7 +187,8 @@ public void manual()
      }
 
      else
-     {  
+     {
+       mDrivetrain.pixyTime = 0;  
        if(mDrivetrain.getDriveGear() == DriveGear.LOW )
        {
         mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), .80);
