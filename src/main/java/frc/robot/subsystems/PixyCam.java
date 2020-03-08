@@ -86,7 +86,7 @@ public class PixyCam extends Subsystem{
 
     public boolean inBigDeadzone()
     {
-        if (Math.abs(this.value()) < innerDeadzone * 3)
+        if (Math.abs(this.value()) < innerDeadzone * 2)
         {
             return true;
         }

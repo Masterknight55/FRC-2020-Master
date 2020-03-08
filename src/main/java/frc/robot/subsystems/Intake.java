@@ -54,14 +54,14 @@ public class Intake extends Subsystem
 
     public void IntakePowercell()
     {
-        mIntakeMotorSpeed = 1;
-        mIntake2MotorSpeed = 1;
+        mIntakeMotorSpeed = .75;
+        mIntake2MotorSpeed = .75;
     }
 
      public void OuttakePowercell()
     {
-        mIntakeMotorSpeed = -1;
-        mIntake2MotorSpeed = -1;
+        mIntakeMotorSpeed = -.75;
+        mIntake2MotorSpeed = -.75;
     }
 
     public void StopIntaking()

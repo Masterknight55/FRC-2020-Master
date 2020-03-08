@@ -171,15 +171,10 @@ public void manual()
      if(mSetup.getDriverAButton())
      {
        //This is the PixyCam on the intake, it aligns on balls
-       //mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
+       //mIntake.IntakePowercell(); It does this in the intake if loop
+       mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
        mDrivetrain.autoAlign(mPixycam, 1);
      }
-
-     /*else if(mSetup.getDriverXButton())
-     {
-       mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), 1);
-       mDrivetrain.chaseBall(mPixycam, 1);
-     }*/
 
      else if(mSetup.getDriverXButton())
      {
@@ -190,7 +185,9 @@ public void manual()
 
      else
      {
+       mIntake.StopIntaking();
        mDrivetrain.goalPixyDisable = false;  
+       mDrivetrain.hasSeen = false;
        if(mDrivetrain.getDriveGear() == DriveGear.LOW )
        {
         mDrivetrain.setTankDriveSpeed(-1*mSetup.getDriverLeftY(), mSetup.getDriverRightY(), .80);
@@ -222,6 +219,10 @@ public void manual()
     else if(mSetup.getDriverBbutton())
     {
       mIntake.OuttakePowercell();
+    }
+    else if(mSetup.getDriverAButton())
+    {
+      mIntake.IntakePowercell();
     }
     else
     {
