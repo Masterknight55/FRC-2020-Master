@@ -383,6 +383,8 @@ public void GetFMSData() {
     mSmartDashboardInteractions = new SmartDashboardInteractions();
     mSmartDashboardInteractions.initWithDefaults();
     mClimber = Climber.getInstance();
+    mPixycam = PixyCam.getInstance(0);
+    mPixycam2 = PixyCam.getInstance(1);
 
     stopAllSubsystems();
 

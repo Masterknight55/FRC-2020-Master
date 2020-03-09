@@ -15,7 +15,7 @@ import frc.robot.subsystems.Drivetrain;
 public class AlignOnGoal implements Action{
 
     private Drivetrain mDrivetrain = Drivetrain.getInstance();
-    private PixyCam pixy;
+    private PixyCam pixy = PixyCam.getInstance(1);
     private int goalPixyDelay;
     private double mLeftSpeed;
     private double mRightSpeed;
@@ -23,9 +23,8 @@ public class AlignOnGoal implements Action{
     private boolean finished;
     private boolean alignedOngoal;
 
-    public AlignOnGoal(PixyCam pixy)
+    public AlignOnGoal()
     {
-        this.pixy = pixy;
     }
 
     public void start() 

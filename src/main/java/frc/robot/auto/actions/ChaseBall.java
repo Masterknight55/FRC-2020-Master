@@ -23,11 +23,10 @@ public class ChaseBall implements Action
     private double mRightSpeed;
     private int scale = 1;
     private Drivetrain mDrivetrain = Drivetrain.getInstance();
-    private PixyCam pixy;
+    private PixyCam pixy = PixyCam.getInstance(0);
 
     public ChaseBall(PixyCam pixycam)
     {
-        pixy = pixycam.getInstance();
     }
 
 	@Override
