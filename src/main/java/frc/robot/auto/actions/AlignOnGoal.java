@@ -40,7 +40,7 @@ public class AlignOnGoal implements Action{
 
     public void update()
     {
-        if((pixy.blockDetected() && pixy.analogPortNumber() == 1) && !goalPixyDisable)
+        if(pixy.blockDetected() && !goalPixyDisable)
 	    {
 			goalPixyDelay = 60;
 
@@ -52,7 +52,7 @@ public class AlignOnGoal implements Action{
 				mRightSpeed = -mRightSpeed * 0.5 - 0.4;
             }
 		}
-		else if(goalPixyDelay > 0 && pixy.analogPortNumber() == 1)
+		else if(goalPixyDelay > 0)
 		{
             alignedOngoal = true;
 			goalPixyDisable = true;
@@ -66,7 +66,7 @@ public class AlignOnGoal implements Action{
             mRightSpeed = 0;
             finished = true;
         }
-        mDrivetrain.setTankDriveSpeed(mLeftSpeed, mRightSpeed, 1);
+        mDrivetrain.setTankDriveSpeed(mLeftSpeed, mRightSpeed);
     }
 
     public void done()
