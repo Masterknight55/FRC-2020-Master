@@ -30,13 +30,13 @@ public class DeliveryAction implements Action
 
     @Override
     public boolean isFinished() {
-        return false;
+            return true;
     }
 
     @Override
      
     public void done() {
-        mDelivery.StopDelivering();
+        //mDelivery.StopDelivering();
     }
 
     
