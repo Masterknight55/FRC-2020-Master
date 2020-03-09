@@ -66,7 +66,7 @@ public class AlignOnGoal implements Action{
             mRightSpeed = 0;
             finished = true;
         }
-        mDrivetrain.setTankDriveSpeed(mLeftSpeed, mRightSpeed);
+        mDrivetrain.setTankDriveSpeed(mLeftSpeed, mRightSpeed, 1);
     }
 
     public void done()
