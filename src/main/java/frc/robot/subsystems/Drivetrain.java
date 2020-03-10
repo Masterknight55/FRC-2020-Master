@@ -143,14 +143,14 @@ public class Drivetrain extends Subsystem {
 		}
 		else if((pixy.blockDetected() && pixy.analogPortNumber() == 1) && !goalPixyDisable)
 		{
-			goalPixyDelay = 60;
+			goalPixyDelay = 10;
 
 			mLeftSpeed = -pixy.value();
 			mRightSpeed = pixy.value();
 			if(pixy.inDeadzone())
 			{
-				mLeftSpeed = mLeftSpeed * 0.5 - 0.4;
-				mRightSpeed = -mRightSpeed * 0.5 - 0.4;
+				mLeftSpeed = mLeftSpeed * 0.5 - 0.8;
+				mRightSpeed = -mRightSpeed * 0.5 - 0.8;
 			}
 		}
 		else if(goalPixyDelay > 0 && pixy.analogPortNumber() == 0 && hasSeen)
@@ -164,8 +164,8 @@ public class Drivetrain extends Subsystem {
 		{
 			goalPixyDisable = true;
 			goalPixyDelay--;
-			mLeftSpeed = -0.2;
-			mRightSpeed = -0.2;
+			mLeftSpeed = -0.4;
+			mRightSpeed = -0.4;
 		}
 		else
 		{
