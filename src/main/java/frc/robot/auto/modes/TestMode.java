@@ -21,8 +21,8 @@ public class TestMode extends AutoModeBase {
 	protected void routine() throws AutoModeEndedException {
 
 		//runAction(new DriveStraightActionDistance(distance, maxSpeed, requiredErrorCounts));
-		runAction(new DriveStraightActionDistance(50));
-		//runAction(new AlignOnGoal());
+		//runAction(new DriveStraightActionDistance(50));
+		runAction(new AlignOnGoal());
 
 		/*
 		runAction(new DeliveryAction());
