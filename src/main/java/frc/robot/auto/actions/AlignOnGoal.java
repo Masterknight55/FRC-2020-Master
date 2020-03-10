@@ -36,37 +36,13 @@ public class AlignOnGoal implements Action{
         goalPixyDisable = false;
         finished = false;
         alignedOngoal = false;
+        mDrivetrain.isFinished = false;
     }
 
     public void update()
     {
-        if(pixy.blockDetected() && !goalPixyDisable)
-	    {
-			goalPixyDelay = 60;
-
-			mLeftSpeed = -pixy.value();
-			mRightSpeed = pixy.value();
-			if(pixy.inDeadzone())
-			{
-				mLeftSpeed = mLeftSpeed * 0.5 - 0.4;
-				mRightSpeed = -mRightSpeed * 0.5 - 0.4;
-            }
-		}
-		else if(goalPixyDelay > 0)
-		{
-            alignedOngoal = true;
-			goalPixyDisable = true;
-			goalPixyDelay--;
-			mLeftSpeed = -0.2;
-			mRightSpeed = -0.2;
-		}
-		else
-		{
-			mLeftSpeed = 0;
-            mRightSpeed = 0;
-            finished = true;
-        }
-        mDrivetrain.setTankDriveSpeed(mLeftSpeed, mRightSpeed, 1);
+        //setLowGear();
+		mDrivetrain.autoAlign(pixy, 1);
     }
 
     public void done()
@@ -79,6 +55,6 @@ public class AlignOnGoal implements Action{
 
     public boolean isFinished()
     {
-        return finished;
+        return mDrivetrain.isFinished;
     }
 }

@@ -125,6 +125,7 @@ public class Drivetrain extends Subsystem {
 	private int goalPixyDelay = 0;
 	public boolean goalPixyDisable = false;
 	public boolean hasSeen = false;
+	public boolean isFinished = false;
 	public void autoAlign(PixyCam pixy, double scale)
 	{
 		setLowGear();
@@ -137,25 +138,25 @@ public class Drivetrain extends Subsystem {
 			mRightSpeed = pixy.value();
 			if(pixy.inDeadzone())
 			{
-				mLeftSpeed = -mLeftSpeed * .5 + 0.4;
-				mRightSpeed = mRightSpeed * .5 + 0.4;
+				mLeftSpeed = 0.4;
+				mRightSpeed = 0.4;
 			}
 		}
 		else if((pixy.blockDetected() && pixy.analogPortNumber() == 1) && !goalPixyDisable)
 		{
-			goalPixyDelay = 10;
+			goalPixyDelay = 15;
 
 			mLeftSpeed = -pixy.value();
 			mRightSpeed = pixy.value();
 			if(pixy.inDeadzone())
 			{
-				mLeftSpeed = mLeftSpeed * 0.5 - 0.8;
-				mRightSpeed = -mRightSpeed * 0.5 - 0.8;
+				mLeftSpeed = -mLeftSpeed * 0.5 - 0.8;
+				mRightSpeed = mRightSpeed * 0.5 - 0.8;
 			}
 		}
 		else if(goalPixyDelay > 0 && pixy.analogPortNumber() == 0 && hasSeen)
 		{
-			//goalPixyDisable = true;
+			goalPixyDisable = true;
 			goalPixyDelay--;
 			mLeftSpeed = 0.2;
 			mRightSpeed = 0.2;
@@ -169,6 +170,7 @@ public class Drivetrain extends Subsystem {
 		}
 		else
 		{
+			isFinished = true;
 			mLeftSpeed = 0;
 			mRightSpeed = 0;
 		}
