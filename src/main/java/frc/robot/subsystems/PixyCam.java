@@ -25,7 +25,7 @@ public class PixyCam extends Subsystem{
     private AnalogInput PixyInput;
 
     //The inner deadzone is when the target is close enough to the center of the camera.  The outer deadzone makes sure the robot does not read a false detection
-    private static final double innerDeadzone = .10;
+    private static final double innerDeadzone = .1;
     private static final double outerDeadzone = .75;
     private static List<PixyCam> Pixylist = new ArrayList<PixyCam>();
 
