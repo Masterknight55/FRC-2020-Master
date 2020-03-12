@@ -17,6 +17,7 @@ public class Intake extends Subsystem
     static Intake mInstance = new Intake();
     public static Intake getInstance() {
         return mInstance;
+
 	}
 	
 
@@ -34,11 +35,14 @@ public class Intake extends Subsystem
     mIntake.set(ControlMode.PercentOutput,0);
     mIntake2.set(ControlMode.PercentOutput,0);
 
+    
+
  }
 
  private double mIntakeMotorSpeed;
  private double mIntake2MotorSpeed;
- private boolean IntakeArmSolenoid; 
+ private boolean IntakeArmSolenoid;
+ public double MotorSpeed = 0.6; 
 
      
     
@@ -54,14 +58,14 @@ public class Intake extends Subsystem
 
     public void IntakePowercell()
     {
-        mIntakeMotorSpeed = 1;
-        mIntake2MotorSpeed = 1;
+        mIntakeMotorSpeed = MotorSpeed;
+        mIntake2MotorSpeed = MotorSpeed;
     }
 
      public void OuttakePowercell()
     {
-        mIntakeMotorSpeed = -1;
-        mIntake2MotorSpeed = -1;
+        mIntakeMotorSpeed = -MotorSpeed;
+        mIntake2MotorSpeed = -MotorSpeed;
     }
 
     public void StopIntaking()

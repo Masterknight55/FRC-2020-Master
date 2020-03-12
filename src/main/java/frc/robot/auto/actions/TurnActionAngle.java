@@ -14,12 +14,25 @@ public class TurnActionAngle implements Action {
 	private double mAngleSetpoint;
 	private double mAngleCorrectionSpeed;
 	
+
+	/*
 	private int mErrorCounts = 0;
 	private int mRequiredErrorCounts = 50;
+	*/
+
+	private int mErrorCounts = 0;
+	private int mRequiredErrorCounts = 0;
 	
+	/*
 	private double mRotationalMaxSpeed = .65;
 	private double mRotationalMinSpeed = .35;
 	private double mRotationalDeadzone = 1.5;
+	*/
+
+
+	private double mRotationalMaxSpeed = .5;
+	private double mRotationalMinSpeed = .2;
+	private double mRotationalDeadzone = 50;
 	
     public TurnActionAngle(double angle) {
 		//mAngleSetpoint = mGyro.getAngle() + angle; //FRC gyroscope
@@ -55,7 +68,7 @@ public class TurnActionAngle implements Action {
     @Override
 	public void update() {
     	calcGyroSpeed();
-		mDrivetrain.setTankDriveSpeed(mAngleCorrectionSpeed, -mAngleCorrectionSpeed,1);
+		mDrivetrain.setTankDriveSpeed(mAngleCorrectionSpeed, mAngleCorrectionSpeed,1);
 		//System.out.println("error = " + calcGyroError() + " deadzone is " + mRotationalDeadzone + " correction speed = " + mAngleCorrectionSpeed );
 		//System.out.println(mGyro.getAngle()); //FRC gyroscope
 		System.out.println(mGyro.getYaw()); //NavX
@@ -81,6 +94,7 @@ public class TurnActionAngle implements Action {
 	}
 	
 	private void calcGyroSpeed() {
+		//.175 was old value to multiple
 		mAngleCorrectionSpeed = calcGyroError() * .175;
 		if (mAngleCorrectionSpeed < mRotationalMinSpeed && mAngleCorrectionSpeed > 0 ) {
 			mAngleCorrectionSpeed = mRotationalMinSpeed;

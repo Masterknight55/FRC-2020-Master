@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Solenoid;
 import frc.robot.MotionProfile;
+import frc.robot.S_CurveMotionProfile;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import frc.robot.Setup;
 
@@ -37,6 +38,7 @@ public class Drivetrain extends Subsystem {
     CANSparkMax mRightRearDrive;
     CANSparkMax mLeftFrontDrive;
 	CANSparkMax mLeftRearDrive;
+	private PixyCam pixyUpdater = PixyCam.getInstance(0);
 	
 	//Motion Profile
 	MotionProfile mDriveTrainMotionProfile;
@@ -124,39 +126,70 @@ public class Drivetrain extends Subsystem {
 
 	private int goalPixyDelay = 0;
 	public boolean goalPixyDisable = false;
+	public boolean hasSeen = false;
+	public boolean isFinished = false;
+	public double zeroAgo = 0;
+	public double oneAgo = 0;
+	public double twoAgo = 0;
+	public double reading = 0;
+	public int chill = 0;
 	public void autoAlign(PixyCam pixy, double scale)
 	{
-		if(pixy.blockDetected() && !pixy.inDeadzone() && pixy.analogPortNumber() == 0)
+		setLowGear();
+		if((pixy.blockDetected() && pixy.analogPortNumber() == 0) && !goalPixyDisable)
 		{
-			mLeftSpeed = -pixy.value();
-			mRightSpeed = pixy.value();
-		}
-		else if((pixy.blockDetected() && !pixy.inDeadzone() && pixy.analogPortNumber() == 1 || goalPixyDelay > 0) && !goalPixyDisable)
-		{
+			hasSeen = true;
 			goalPixyDelay = 60;
+
+			reading = ((twoAgo + oneAgo + zeroAgo) / 3);
+			if(Math.abs(twoAgo - zeroAgo) > .2)
+			{
+					goalPixyDisable = true;
+			}
+			if(reading < 0.1)
+			{
+				mLeftSpeed = -reading * .5 + 0.2;
+				mRightSpeed = reading * .5 + 0.2;
+			}
+			else
+			{
+				mLeftSpeed = -reading;
+				mRightSpeed = reading;
+			}
+		}
+		else if((pixy.blockDetected() && pixy.analogPortNumber() == 1) && !goalPixyDisable)
+		{
+			goalPixyDelay = 12;
 
 			mLeftSpeed = -pixy.value();
 			mRightSpeed = pixy.value();
 			if(pixy.inDeadzone())
 			{
-				mLeftSpeed = mLeftSpeed * 0.5 - 0.4;
-				mRightSpeed = -mRightSpeed * 0.5 - 0.4;
+				mLeftSpeed = -mLeftSpeed * 0.5 - 0.8;
+				mRightSpeed = mRightSpeed * 0.5 - 0.8;
 			}
 		}
-		/*else if(pixy.analogPortNumber() == 1)
-		{
-			mLeftSpeed = 0.5;
-			mRightSpeed = -0.5;
-		}*/
-		else if(goalPixyDelay > 0)
+		else if(goalPixyDelay > 0 && pixy.analogPortNumber() == 0 && hasSeen)
 		{
 			goalPixyDisable = true;
 			goalPixyDelay--;
-			mLeftSpeed = -0.2;
-			mRightSpeed = -0.2;
+			mLeftSpeed = 0.2;
+			mRightSpeed = 0.2;
+			if(goalPixyDelay == 0)
+			{
+				goalPixyDisable = false;
+			}
+		}
+		else if(goalPixyDelay > 0 && pixy.analogPortNumber() == 1)
+		{
+			goalPixyDisable = true;
+			goalPixyDelay--;
+			mLeftSpeed = -0.4;
+			mRightSpeed = -0.4;
 		}
 		else
 		{
+			isFinished = true;
 			mLeftSpeed = 0;
 			mRightSpeed = 0;
 		}
@@ -244,6 +277,10 @@ public class Drivetrain extends Subsystem {
 	@Override
 	public void updateSubsystem() {
 
+		twoAgo = oneAgo;
+		oneAgo = zeroAgo; 
+		zeroAgo = pixyUpdater.value();
+
 		mLeftFrontDrive.set(mLeftSpeed);
     	mLeftRearDrive.set(mLeftSpeed);
     	mRightFrontDrive.set(mRightSpeed);
@@ -284,6 +321,9 @@ public class Drivetrain extends Subsystem {
 		SmartDashboard.putString("Drive_Gear", mDriveGear.toString());
 		SmartDashboard.putNumber("GoalPixyDelay", goalPixyDelay);
 		SmartDashboard.putBoolean("GoalPixyDisable", goalPixyDisable);
+		SmartDashboard.putNumber("ReadingPixy", reading);
+		SmartDashboard.putNumber("OneAgoPixy", oneAgo);
+		SmartDashboard.putNumber("TwoAgoPixy", twoAgo);
 	}
 
 

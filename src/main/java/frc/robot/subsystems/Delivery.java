@@ -32,7 +32,7 @@ public class Delivery extends Subsystem
     Solenoid mDeliveryArm;
 
 
-    public double SPEED = 1;
+    public double SPEED = 0.75;
 
 
 public Delivery() {

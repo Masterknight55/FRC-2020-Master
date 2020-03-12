@@ -7,6 +7,9 @@
 
 package frc.robot.subsystems;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Setup;
@@ -22,14 +25,15 @@ public class PixyCam extends Subsystem{
     private AnalogInput PixyInput;
 
     //The inner deadzone is when the target is close enough to the center of the camera.  The outer deadzone makes sure the robot does not read a false detection
-    private static final double innerDeadzone = .10;
+    private static final double innerDeadzone = .1;
     private static final double outerDeadzone = .75;
+    private static List<PixyCam> Pixylist = new ArrayList<PixyCam>();
 
     //InstanceGetting
     
     //static PixyCam mInstance = new PixyCam(0);
-    public PixyCam getInstance() {
-        return this;
+    public static PixyCam getInstance(int num) {
+        return Pixylist.get(num);
 	}
     
     //Decleares the PixyCam object and creates the PixyInput analogPort
@@ -42,6 +46,7 @@ public class PixyCam extends Subsystem{
         this.analogPort = analogPort;
         PixyInput = new AnalogInput(analogPort);
         int age = 0;
+        Pixylist.add(this);
     }
 
     /**
@@ -86,7 +91,7 @@ public class PixyCam extends Subsystem{
 
     public boolean inBigDeadzone()
     {
-        if (Math.abs(this.value()) < innerDeadzone * 3)
+        if (Math.abs(this.value()) < innerDeadzone * 2)
         {
             return true;
         }
